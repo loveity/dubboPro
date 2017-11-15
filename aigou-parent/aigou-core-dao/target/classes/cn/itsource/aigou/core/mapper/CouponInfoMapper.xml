@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.CouponInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.CouponInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="promotionName" jdbcType="VARCHAR" property="promotionName" />
+    <result column="validateTime" jdbcType="BIGINT" property="validateTime" />
+    <result column="totalCount" jdbcType="INTEGER" property="totalCount" />
+    <result column="publishCount" jdbcType="INTEGER" property="publishCount" />
+    <result column="leftCount" jdbcType="INTEGER" property="leftCount" />
+    <result column="promotionRuleId" jdbcType="BIGINT" property="promotionRuleId" />
+    <result column="scopeRuleId" jdbcType="BIGINT" property="scopeRuleId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, promotionName, validateTime, totalCount, publishCount, 
+    leftCount, promotionRuleId, scopeRuleId, description
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_coupon_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_coupon_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.CouponInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_coupon_info (createTime, updateTime, promotionName, 
+      validateTime, totalCount, publishCount, 
+      leftCount, promotionRuleId, scopeRuleId, 
+      description)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{promotionName,jdbcType=VARCHAR}, 
+      #{validateTime,jdbcType=BIGINT}, #{totalCount,jdbcType=INTEGER}, #{publishCount,jdbcType=INTEGER}, 
+      #{leftCount,jdbcType=INTEGER}, #{promotionRuleId,jdbcType=BIGINT}, #{scopeRuleId,jdbcType=BIGINT}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.CouponInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_coupon_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="promotionName != null">
+        promotionName,
+      </if>
+      <if test="validateTime != null">
+        validateTime,
+      </if>
+      <if test="totalCount != null">
+        totalCount,
+      </if>
+      <if test="publishCount != null">
+        publishCount,
+      </if>
+      <if test="leftCount != null">
+        leftCount,
+      </if>
+      <if test="promotionRuleId != null">
+        promotionRuleId,
+      </if>
+      <if test="scopeRuleId != null">
+        scopeRuleId,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="promotionName != null">
+        #{promotionName,jdbcType=VARCHAR},
+      </if>
+      <if test="validateTime != null">
+        #{validateTime,jdbcType=BIGINT},
+      </if>
+      <if test="totalCount != null">
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="publishCount != null">
+        #{publishCount,jdbcType=INTEGER},
+      </if>
+      <if test="leftCount != null">
+        #{leftCount,jdbcType=INTEGER},
+      </if>
+      <if test="promotionRuleId != null">
+        #{promotionRuleId,jdbcType=BIGINT},
+      </if>
+      <if test="scopeRuleId != null">
+        #{scopeRuleId,jdbcType=BIGINT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.CouponInfo">
+    update t_coupon_info
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="promotionName != null">
+        promotionName = #{promotionName,jdbcType=VARCHAR},
+      </if>
+      <if test="validateTime != null">
+        validateTime = #{validateTime,jdbcType=BIGINT},
+      </if>
+      <if test="totalCount != null">
+        totalCount = #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="publishCount != null">
+        publishCount = #{publishCount,jdbcType=INTEGER},
+      </if>
+      <if test="leftCount != null">
+        leftCount = #{leftCount,jdbcType=INTEGER},
+      </if>
+      <if test="promotionRuleId != null">
+        promotionRuleId = #{promotionRuleId,jdbcType=BIGINT},
+      </if>
+      <if test="scopeRuleId != null">
+        scopeRuleId = #{scopeRuleId,jdbcType=BIGINT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.CouponInfo">
+    update t_coupon_info
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      promotionName = #{promotionName,jdbcType=VARCHAR},
+      validateTime = #{validateTime,jdbcType=BIGINT},
+      totalCount = #{totalCount,jdbcType=INTEGER},
+      publishCount = #{publishCount,jdbcType=INTEGER},
+      leftCount = #{leftCount,jdbcType=INTEGER},
+      promotionRuleId = #{promotionRuleId,jdbcType=BIGINT},
+      scopeRuleId = #{scopeRuleId,jdbcType=BIGINT},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.OrderBillMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.OrderBill">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="orderId" jdbcType="BIGINT" property="orderId" />
+    <result column="orderSn" jdbcType="CHAR" property="orderSn" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, orderId, orderSn, title, type, content
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_bill
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_order_bill
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.OrderBill">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_bill (createTime, updateTime, orderId, 
+      orderSn, title, type, 
+      content)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, 
+      #{orderSn,jdbcType=CHAR}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
+      #{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.OrderBill">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="orderId != null">
+        orderId,
+      </if>
+      <if test="orderSn != null">
+        orderSn,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null">
+        #{orderSn,jdbcType=CHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.OrderBill">
+    update t_order_bill
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        orderId = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null">
+        orderSn = #{orderSn,jdbcType=CHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.OrderBill">
+    update t_order_bill
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      orderId = #{orderId,jdbcType=BIGINT},
+      orderSn = #{orderSn,jdbcType=CHAR},
+      title = #{title,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      content = #{content,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

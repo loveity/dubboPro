@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.OrderDetailMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.OrderDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="orderId" jdbcType="BIGINT" property="orderId" />
+    <result column="productId" jdbcType="BIGINT" property="productId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="skuId" jdbcType="BIGINT" property="skuId" />
+    <result column="skuMainPic" jdbcType="VARCHAR" property="skuMainPic" />
+    <result column="skuProperties" jdbcType="VARCHAR" property="skuProperties" />
+    <result column="marketPrice" jdbcType="INTEGER" property="marketPrice" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="totalMoney" jdbcType="INTEGER" property="totalMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, orderId, productId, name, skuId, skuMainPic, skuProperties, 
+    marketPrice, price, amount, totalMoney
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_order_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.OrderDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_detail (createTime, updateTime, orderId, 
+      productId, name, skuId, 
+      skuMainPic, skuProperties, marketPrice, 
+      price, amount, totalMoney
+      )
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, 
+      #{productId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{skuId,jdbcType=BIGINT}, 
+      #{skuMainPic,jdbcType=VARCHAR}, #{skuProperties,jdbcType=VARCHAR}, #{marketPrice,jdbcType=INTEGER}, 
+      #{price,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, #{totalMoney,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.OrderDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="orderId != null">
+        orderId,
+      </if>
+      <if test="productId != null">
+        productId,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="skuId != null">
+        skuId,
+      </if>
+      <if test="skuMainPic != null">
+        skuMainPic,
+      </if>
+      <if test="skuProperties != null">
+        skuProperties,
+      </if>
+      <if test="marketPrice != null">
+        marketPrice,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="totalMoney != null">
+        totalMoney,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuMainPic != null">
+        #{skuMainPic,jdbcType=VARCHAR},
+      </if>
+      <if test="skuProperties != null">
+        #{skuProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="totalMoney != null">
+        #{totalMoney,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.OrderDetail">
+    update t_order_detail
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        orderId = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        productId = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null">
+        skuId = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuMainPic != null">
+        skuMainPic = #{skuMainPic,jdbcType=VARCHAR},
+      </if>
+      <if test="skuProperties != null">
+        skuProperties = #{skuProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        marketPrice = #{marketPrice,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="totalMoney != null">
+        totalMoney = #{totalMoney,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.OrderDetail">
+    update t_order_detail
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      orderId = #{orderId,jdbcType=BIGINT},
+      productId = #{productId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      skuId = #{skuId,jdbcType=BIGINT},
+      skuMainPic = #{skuMainPic,jdbcType=VARCHAR},
+      skuProperties = #{skuProperties,jdbcType=VARCHAR},
+      marketPrice = #{marketPrice,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=INTEGER},
+      totalMoney = #{totalMoney,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

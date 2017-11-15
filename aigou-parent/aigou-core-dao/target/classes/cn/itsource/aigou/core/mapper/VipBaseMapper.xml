@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.VipBaseMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.VipBase">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="ssoId" jdbcType="BIGINT" property="ssoId" />
+    <result column="regChannel" jdbcType="TINYINT" property="regChannel" />
+    <result column="regTime" jdbcType="BIGINT" property="regTime" />
+    <result column="activeTime" jdbcType="BIGINT" property="activeTime" />
+    <result column="activeType" jdbcType="TINYINT" property="activeType" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="level" jdbcType="TINYINT" property="level" />
+    <result column="growScore" jdbcType="INTEGER" property="growScore" />
+    <result column="referId" jdbcType="BIGINT" property="referId" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="areaCode" jdbcType="INTEGER" property="areaCode" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, ssoId, regChannel, regTime, activeTime, activeType, qq, 
+    level, growScore, referId, sex, birthday, areaCode, address
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_vip_base
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_vip_base
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.VipBase">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_vip_base (createTime, updateTime, ssoId, 
+      regChannel, regTime, activeTime, 
+      activeType, qq, level, 
+      growScore, referId, sex, 
+      birthday, areaCode, address
+      )
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{ssoId,jdbcType=BIGINT}, 
+      #{regChannel,jdbcType=TINYINT}, #{regTime,jdbcType=BIGINT}, #{activeTime,jdbcType=BIGINT}, 
+      #{activeType,jdbcType=TINYINT}, #{qq,jdbcType=VARCHAR}, #{level,jdbcType=TINYINT}, 
+      #{growScore,jdbcType=INTEGER}, #{referId,jdbcType=BIGINT}, #{sex,jdbcType=TINYINT}, 
+      #{birthday,jdbcType=DATE}, #{areaCode,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.VipBase">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_vip_base
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="ssoId != null">
+        ssoId,
+      </if>
+      <if test="regChannel != null">
+        regChannel,
+      </if>
+      <if test="regTime != null">
+        regTime,
+      </if>
+      <if test="activeTime != null">
+        activeTime,
+      </if>
+      <if test="activeType != null">
+        activeType,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="growScore != null">
+        growScore,
+      </if>
+      <if test="referId != null">
+        referId,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="areaCode != null">
+        areaCode,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="regChannel != null">
+        #{regChannel,jdbcType=TINYINT},
+      </if>
+      <if test="regTime != null">
+        #{regTime,jdbcType=BIGINT},
+      </if>
+      <if test="activeTime != null">
+        #{activeTime,jdbcType=BIGINT},
+      </if>
+      <if test="activeType != null">
+        #{activeType,jdbcType=TINYINT},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=TINYINT},
+      </if>
+      <if test="growScore != null">
+        #{growScore,jdbcType=INTEGER},
+      </if>
+      <if test="referId != null">
+        #{referId,jdbcType=BIGINT},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.VipBase">
+    update t_vip_base
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        ssoId = #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="regChannel != null">
+        regChannel = #{regChannel,jdbcType=TINYINT},
+      </if>
+      <if test="regTime != null">
+        regTime = #{regTime,jdbcType=BIGINT},
+      </if>
+      <if test="activeTime != null">
+        activeTime = #{activeTime,jdbcType=BIGINT},
+      </if>
+      <if test="activeType != null">
+        activeType = #{activeType,jdbcType=TINYINT},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=TINYINT},
+      </if>
+      <if test="growScore != null">
+        growScore = #{growScore,jdbcType=INTEGER},
+      </if>
+      <if test="referId != null">
+        referId = #{referId,jdbcType=BIGINT},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="areaCode != null">
+        areaCode = #{areaCode,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.VipBase">
+    update t_vip_base
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      ssoId = #{ssoId,jdbcType=BIGINT},
+      regChannel = #{regChannel,jdbcType=TINYINT},
+      regTime = #{regTime,jdbcType=BIGINT},
+      activeTime = #{activeTime,jdbcType=BIGINT},
+      activeType = #{activeType,jdbcType=TINYINT},
+      qq = #{qq,jdbcType=VARCHAR},
+      level = #{level,jdbcType=TINYINT},
+      growScore = #{growScore,jdbcType=INTEGER},
+      referId = #{referId,jdbcType=BIGINT},
+      sex = #{sex,jdbcType=TINYINT},
+      birthday = #{birthday,jdbcType=DATE},
+      areaCode = #{areaCode,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

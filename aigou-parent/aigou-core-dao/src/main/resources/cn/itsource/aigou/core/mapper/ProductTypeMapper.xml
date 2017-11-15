@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.ProductTypeMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.ProductType">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="sortIndex" jdbcType="INTEGER" property="sortIndex" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="totalCount" jdbcType="INTEGER" property="totalCount" />
+    <result column="seoTitle" jdbcType="VARCHAR" property="seoTitle" />
+    <result column="seoKeywords" jdbcType="VARCHAR" property="seoKeywords" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, name, pid, logo, description, sortIndex, path, totalCount, 
+    seoTitle, seoKeywords
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_type
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_type
+  </select>
+  <!-- 通过pid获取子节点 -->
+  <select id="getChildren" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_type where pid=#{pid,jdbcType=BIGINT}
+  </select>
+  <!-- 通过pid获取父节点及后台节点 -->
+  <select id="getTypes" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_type where path like CONCAT('%.',#{pid,jdbcType=BIGINT},'.%')
+  </select>
+ 
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_product_type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.ProductType">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_product_type (createTime, updateTime, name, 
+      pid, logo, description, 
+      sortIndex, path, totalCount, 
+      seoTitle, seoKeywords)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{pid,jdbcType=BIGINT}, #{logo,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{sortIndex,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{totalCount,jdbcType=INTEGER}, 
+      #{seoTitle,jdbcType=VARCHAR}, #{seoKeywords,jdbcType=VARCHAR})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.ProductType">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_product_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="logo != null">
+        logo,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="sortIndex != null">
+        sortIndex,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="totalCount != null">
+        totalCount,
+      </if>
+      <if test="seoTitle != null">
+        seoTitle,
+      </if>
+      <if test="seoKeywords != null">
+        seoKeywords,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null">
+        #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCount != null">
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="seoTitle != null">
+        #{seoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="seoKeywords != null">
+        #{seoKeywords,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.ProductType">
+    update t_product_type
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null">
+        sortIndex = #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCount != null">
+        totalCount = #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="seoTitle != null">
+        seoTitle = #{seoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="seoKeywords != null">
+        seoKeywords = #{seoKeywords,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.ProductType">
+    update t_product_type
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=BIGINT},
+      logo = #{logo,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      sortIndex = #{sortIndex,jdbcType=INTEGER},
+      path = #{path,jdbcType=VARCHAR},
+      totalCount = #{totalCount,jdbcType=INTEGER},
+      seoTitle = #{seoTitle,jdbcType=VARCHAR},
+      seoKeywords = #{seoKeywords,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

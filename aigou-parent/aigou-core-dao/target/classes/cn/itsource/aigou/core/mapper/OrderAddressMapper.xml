@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.OrderAddressMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.OrderAddress">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="orderId" jdbcType="BIGINT" property="orderId" />
+    <result column="orderSn" jdbcType="CHAR" property="orderSn" />
+    <result column="reciver" jdbcType="VARCHAR" property="reciver" />
+    <result column="areaCode" jdbcType="CHAR" property="areaCode" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="fullAddress" jdbcType="VARCHAR" property="fullAddress" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="phoneBack" jdbcType="VARCHAR" property="phoneBack" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="postCode" jdbcType="VARCHAR" property="postCode" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, orderId, orderSn, reciver, areaCode, address, fullAddress, 
+    phone, phoneBack, tel, postCode, email
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_address
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_order_address
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.OrderAddress">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_address (createTime, updateTime, orderId, 
+      orderSn, reciver, areaCode, 
+      address, fullAddress, phone, 
+      phoneBack, tel, postCode, 
+      email)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, 
+      #{orderSn,jdbcType=CHAR}, #{reciver,jdbcType=VARCHAR}, #{areaCode,jdbcType=CHAR}, 
+      #{address,jdbcType=VARCHAR}, #{fullAddress,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, 
+      #{phoneBack,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.OrderAddress">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="orderId != null">
+        orderId,
+      </if>
+      <if test="orderSn != null">
+        orderSn,
+      </if>
+      <if test="reciver != null">
+        reciver,
+      </if>
+      <if test="areaCode != null">
+        areaCode,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="fullAddress != null">
+        fullAddress,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="phoneBack != null">
+        phoneBack,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="postCode != null">
+        postCode,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null">
+        #{orderSn,jdbcType=CHAR},
+      </if>
+      <if test="reciver != null">
+        #{reciver,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=CHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="fullAddress != null">
+        #{fullAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="phoneBack != null">
+        #{phoneBack,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.OrderAddress">
+    update t_order_address
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        orderId = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null">
+        orderSn = #{orderSn,jdbcType=CHAR},
+      </if>
+      <if test="reciver != null">
+        reciver = #{reciver,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        areaCode = #{areaCode,jdbcType=CHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="fullAddress != null">
+        fullAddress = #{fullAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="phoneBack != null">
+        phoneBack = #{phoneBack,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        postCode = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.OrderAddress">
+    update t_order_address
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      orderId = #{orderId,jdbcType=BIGINT},
+      orderSn = #{orderSn,jdbcType=CHAR},
+      reciver = #{reciver,jdbcType=VARCHAR},
+      areaCode = #{areaCode,jdbcType=CHAR},
+      address = #{address,jdbcType=VARCHAR},
+      fullAddress = #{fullAddress,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=CHAR},
+      phoneBack = #{phoneBack,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      postCode = #{postCode,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

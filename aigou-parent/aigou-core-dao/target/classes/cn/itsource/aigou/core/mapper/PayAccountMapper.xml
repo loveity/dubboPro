@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.PayAccountMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.PayAccount">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="ssoId" jdbcType="BIGINT" property="ssoId" />
+    <result column="useableBalance" jdbcType="INTEGER" property="useableBalance" />
+    <result column="frozenBalance" jdbcType="INTEGER" property="frozenBalance" />
+    <result column="creditBanance" jdbcType="INTEGER" property="creditBanance" />
+    <result column="payPassword" jdbcType="CHAR" property="payPassword" />
+    <result column="couponCount" jdbcType="INTEGER" property="couponCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, ssoId, useableBalance, frozenBalance, creditBanance, 
+    payPassword, couponCount
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_pay_account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_pay_account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.PayAccount">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_pay_account (createTime, updateTime, ssoId, 
+      useableBalance, frozenBalance, creditBanance, 
+      payPassword, couponCount)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{ssoId,jdbcType=BIGINT}, 
+      #{useableBalance,jdbcType=INTEGER}, #{frozenBalance,jdbcType=INTEGER}, #{creditBanance,jdbcType=INTEGER}, 
+      #{payPassword,jdbcType=CHAR}, #{couponCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.PayAccount">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_pay_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="ssoId != null">
+        ssoId,
+      </if>
+      <if test="useableBalance != null">
+        useableBalance,
+      </if>
+      <if test="frozenBalance != null">
+        frozenBalance,
+      </if>
+      <if test="creditBanance != null">
+        creditBanance,
+      </if>
+      <if test="payPassword != null">
+        payPassword,
+      </if>
+      <if test="couponCount != null">
+        couponCount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="useableBalance != null">
+        #{useableBalance,jdbcType=INTEGER},
+      </if>
+      <if test="frozenBalance != null">
+        #{frozenBalance,jdbcType=INTEGER},
+      </if>
+      <if test="creditBanance != null">
+        #{creditBanance,jdbcType=INTEGER},
+      </if>
+      <if test="payPassword != null">
+        #{payPassword,jdbcType=CHAR},
+      </if>
+      <if test="couponCount != null">
+        #{couponCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.PayAccount">
+    update t_pay_account
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        ssoId = #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="useableBalance != null">
+        useableBalance = #{useableBalance,jdbcType=INTEGER},
+      </if>
+      <if test="frozenBalance != null">
+        frozenBalance = #{frozenBalance,jdbcType=INTEGER},
+      </if>
+      <if test="creditBanance != null">
+        creditBanance = #{creditBanance,jdbcType=INTEGER},
+      </if>
+      <if test="payPassword != null">
+        payPassword = #{payPassword,jdbcType=CHAR},
+      </if>
+      <if test="couponCount != null">
+        couponCount = #{couponCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.PayAccount">
+    update t_pay_account
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      ssoId = #{ssoId,jdbcType=BIGINT},
+      useableBalance = #{useableBalance,jdbcType=INTEGER},
+      frozenBalance = #{frozenBalance,jdbcType=INTEGER},
+      creditBanance = #{creditBanance,jdbcType=INTEGER},
+      payPassword = #{payPassword,jdbcType=CHAR},
+      couponCount = #{couponCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getBySso" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select * from t_pay_account where ssoId=#{ssoId}
+  </select>
+</mapper>

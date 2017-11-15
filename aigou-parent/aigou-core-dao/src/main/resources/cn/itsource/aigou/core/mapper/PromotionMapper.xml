@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.PromotionMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.Promotion">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="promotionName" jdbcType="VARCHAR" property="promotionName" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="isOpen" jdbcType="TINYINT" property="isOpen" />
+    <result column="scopeRuleId" jdbcType="BIGINT" property="scopeRuleId" />
+    <result column="promotionRuleId" jdbcType="BIGINT" property="promotionRuleId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, promotionName, icon, isOpen, scopeRuleId, promotionRuleId, 
+    description
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_promotion
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_promotion
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.Promotion">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_promotion (createTime, updateTime, promotionName, 
+      icon, isOpen, scopeRuleId, 
+      promotionRuleId, description)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{promotionName,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{isOpen,jdbcType=TINYINT}, #{scopeRuleId,jdbcType=BIGINT}, 
+      #{promotionRuleId,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.Promotion">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_promotion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="promotionName != null">
+        promotionName,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="isOpen != null">
+        isOpen,
+      </if>
+      <if test="scopeRuleId != null">
+        scopeRuleId,
+      </if>
+      <if test="promotionRuleId != null">
+        promotionRuleId,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="promotionName != null">
+        #{promotionName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null">
+        #{isOpen,jdbcType=TINYINT},
+      </if>
+      <if test="scopeRuleId != null">
+        #{scopeRuleId,jdbcType=BIGINT},
+      </if>
+      <if test="promotionRuleId != null">
+        #{promotionRuleId,jdbcType=BIGINT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.Promotion">
+    update t_promotion
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="promotionName != null">
+        promotionName = #{promotionName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null">
+        isOpen = #{isOpen,jdbcType=TINYINT},
+      </if>
+      <if test="scopeRuleId != null">
+        scopeRuleId = #{scopeRuleId,jdbcType=BIGINT},
+      </if>
+      <if test="promotionRuleId != null">
+        promotionRuleId = #{promotionRuleId,jdbcType=BIGINT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.Promotion">
+    update t_promotion
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      promotionName = #{promotionName,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      isOpen = #{isOpen,jdbcType=TINYINT},
+      scopeRuleId = #{scopeRuleId,jdbcType=BIGINT},
+      promotionRuleId = #{promotionRuleId,jdbcType=BIGINT},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

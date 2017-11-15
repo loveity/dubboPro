@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.AreaMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.Area">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="shortName" jdbcType="VARCHAR" property="shortName" />
+    <result column="zipcode" jdbcType="CHAR" property="zipcode" />
+    <result column="letter" jdbcType="CHAR" property="letter" />
+    <result column="pinyin" jdbcType="VARCHAR" property="pinyin" />
+    <result column="lng" jdbcType="REAL" property="lng" />
+    <result column="lat" jdbcType="REAL" property="lat" />
+    <result column="code" jdbcType="CHAR" property="code" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="level" jdbcType="TINYINT" property="level" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, pid, shortName, zipcode, letter, pinyin, lng, lat, code, path, level, sort
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_area
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getAreaList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from t_area c where c.pid=(select id from t_area where `code`=#{parentCode,jdbcType=VARCHAR})
+  </select>
+  <select id="getProvinceList" resultMap="BaseResultMap">
+    select * from t_area where level=1
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_area
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.Area">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_area (name, pid, shortName, 
+      zipcode, letter, pinyin, 
+      lng, lat, code, path, 
+      level, sort)
+    values (#{name,jdbcType=VARCHAR}, #{pid,jdbcType=BIGINT}, #{shortName,jdbcType=VARCHAR}, 
+      #{zipcode,jdbcType=CHAR}, #{letter,jdbcType=CHAR}, #{pinyin,jdbcType=VARCHAR}, 
+      #{lng,jdbcType=REAL}, #{lat,jdbcType=REAL}, #{code,jdbcType=CHAR}, #{path,jdbcType=VARCHAR}, 
+      #{level,jdbcType=TINYINT}, #{sort,jdbcType=INTEGER})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.Area">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="shortName != null">
+        shortName,
+      </if>
+      <if test="zipcode != null">
+        zipcode,
+      </if>
+      <if test="letter != null">
+        letter,
+      </if>
+      <if test="pinyin != null">
+        pinyin,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="shortName != null">
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        #{zipcode,jdbcType=CHAR},
+      </if>
+      <if test="letter != null">
+        #{letter,jdbcType=CHAR},
+      </if>
+      <if test="pinyin != null">
+        #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=REAL},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=REAL},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=CHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.Area">
+    update t_area
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="shortName != null">
+        shortName = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        zipcode = #{zipcode,jdbcType=CHAR},
+      </if>
+      <if test="letter != null">
+        letter = #{letter,jdbcType=CHAR},
+      </if>
+      <if test="pinyin != null">
+        pinyin = #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=REAL},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=REAL},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=CHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.Area">
+    update t_area
+    set name = #{name,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=BIGINT},
+      shortName = #{shortName,jdbcType=VARCHAR},
+      zipcode = #{zipcode,jdbcType=CHAR},
+      letter = #{letter,jdbcType=CHAR},
+      pinyin = #{pinyin,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=REAL},
+      lat = #{lat,jdbcType=REAL},
+      code = #{code,jdbcType=CHAR},
+      path = #{path,jdbcType=VARCHAR},
+      level = #{level,jdbcType=TINYINT},
+      sort = #{sort,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

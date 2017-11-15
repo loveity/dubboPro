@@ -1,0 +1,128 @@
+① 全局映射
+PUT _template/global_template
+{
+  "template":   "*",
+  "settings": { "number_of_shards": 1 },
+  "mappings": {
+    "_default_": {
+      "_all": { 
+        "enabled": false
+      },
+      "dynamic_templates": [
+        {
+          "string_as_text": { 
+            "match_mapping_type": "string",
+            "match":   "*_text",
+            "mapping": {
+              "type": "text",
+              "analyzer": "ik_max_word",
+              "search_analyzer": "ik_max_word",
+              "fields": {
+                "raw": {
+                  "type":  "keyword",
+                  "ignore_above": 256
+                }
+              }
+            }
+          }
+        },
+        {
+          "string_as_keyword": { 
+            "match_mapping_type": "string",
+            "mapping": {
+              "type": "keyword"
+             }
+          }
+        }
+      ]
+    }
+  }}
+  
+② 创建索引库aigou
+PUT aigou
+  
+③ 配置product映射
+PUT aigou/_mapping/product
+{
+  "product" : {
+    "properties" : {
+      "id" : {
+        "type" : "long"
+      },
+      "productAll" : {
+		    "type": "text",
+		    "analyzer": "ik_smart"
+  	  },
+  	  "brandName": {
+  		    "type": "keyword",
+  		    "copy_to": "productAll"
+  	  },
+      "name" : {
+        "type" : "text",
+        "analyzer": "ik_smart",
+        "search_analyzer": "ik_smart",
+        "copy_to": "productAll"
+      },
+      "subName" : {
+        "type" : "text",
+        "analyzer": "ik_smart",
+        "search_analyzer": "ik_smart",
+        "copy_to": "productAll"
+      },
+      "code" : {
+        "type" : "keyword"
+      },
+      "productType" : {
+        "type":"long"
+      },
+      "productTypeName" : {
+        "type" : "keyword",
+        "copy_to": "productAll"
+      },
+      "onSaleTime" : {
+        "type":"long"
+      },
+      "offSaleTime" : {
+        "type":"long"
+      },
+      "brandId" : {
+        "type":"long"
+      },
+      "state" : {
+        "type" : "integer"
+      },
+      "maxPrice" : {
+        "type" : "integer"
+      },
+      "minPrice" :{
+        "type" : "integer"
+      },
+      "viewProperties":{
+        "type" : "text",
+        "analyzer": "ik_smart",
+        "search_analyzer": "ik_smart"
+      },
+      "images" : {
+        "type" : "keyword"
+      },
+      "commentCount" : {
+        "type" : "integer"
+      },
+      "saleCount" : {
+        "type" : "integer"
+      },
+      "viewCount" : {
+        "type" : "integer"
+      },
+      "description" : {
+        "type" : "text",
+        "analyzer": "ik_smart",
+        "search_analyzer": "ik_smart",
+        "copy_to": "productAll"
+      }
+    }
+  }
+}
+
+④ 通过ES JAVA API进行文档的添加、修改、删除和查询
+....

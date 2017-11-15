@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.VipAddressMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.VipAddress">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="ssoId" jdbcType="BIGINT" property="ssoId" />
+    <result column="reciver" jdbcType="VARCHAR" property="reciver" />
+    <result column="areaCode" jdbcType="CHAR" property="areaCode" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="fullAddress" jdbcType="VARCHAR" property="fullAddress" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="phoneBack" jdbcType="VARCHAR" property="phoneBack" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="postCode" jdbcType="VARCHAR" property="postCode" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="defaultAddress" jdbcType="TINYINT" property="defaultAddress" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, ssoId, reciver, areaCode, address, fullAddress, phone, 
+    phoneBack, tel, postCode, email, defaultAddress
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_vip_address
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_vip_address
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.VipAddress">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_vip_address (createTime, updateTime, ssoId, 
+      reciver, areaCode, address, 
+      fullAddress, phone, phoneBack, 
+      tel, postCode, email, 
+      defaultAddress)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{ssoId,jdbcType=BIGINT}, 
+      #{reciver,jdbcType=VARCHAR}, #{areaCode,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, 
+      #{fullAddress,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, #{phoneBack,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{defaultAddress,jdbcType=TINYINT})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.VipAddress">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_vip_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="ssoId != null">
+        ssoId,
+      </if>
+      <if test="reciver != null">
+        reciver,
+      </if>
+      <if test="areaCode != null">
+        areaCode,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="fullAddress != null">
+        fullAddress,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="phoneBack != null">
+        phoneBack,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="postCode != null">
+        postCode,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="defaultAddress != null">
+        defaultAddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="reciver != null">
+        #{reciver,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=CHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="fullAddress != null">
+        #{fullAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="phoneBack != null">
+        #{phoneBack,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultAddress != null">
+        #{defaultAddress,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.VipAddress">
+    update t_vip_address
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        ssoId = #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="reciver != null">
+        reciver = #{reciver,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        areaCode = #{areaCode,jdbcType=CHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="fullAddress != null">
+        fullAddress = #{fullAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="phoneBack != null">
+        phoneBack = #{phoneBack,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        postCode = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultAddress != null">
+        defaultAddress = #{defaultAddress,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.VipAddress">
+    update t_vip_address
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      ssoId = #{ssoId,jdbcType=BIGINT},
+      reciver = #{reciver,jdbcType=VARCHAR},
+      areaCode = #{areaCode,jdbcType=CHAR},
+      address = #{address,jdbcType=VARCHAR},
+      fullAddress = #{fullAddress,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=CHAR},
+      phoneBack = #{phoneBack,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      postCode = #{postCode,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      defaultAddress = #{defaultAddress,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getBySso" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select * from t_vip_address where ssoId = #{ssoId}
+  </select>
+  
+  <update id="setDefault" parameterType="java.lang.Long">
+  	update t_vip_address set defaultAddress=1 where id=#{id}
+  </update>
+  
+  <update id="cancelDefault" parameterType="java.lang.Long">
+  	update t_vip_address set defaultAddress=0 where defaultAddress=1 and ssoId=#{ssoId}
+  </update>
+  
+  <select id="getDefault" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select * from t_vip_address where defaultAddress=1 and ssoId=#{ssoId}
+  </select>
+</mapper>

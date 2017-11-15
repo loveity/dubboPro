@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.Product">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="subName" jdbcType="VARCHAR" property="subName" />
+    <result column="code" jdbcType="CHAR" property="code" />
+    <result column="productType" jdbcType="BIGINT" property="productType" />
+    <result column="onSaleTime" jdbcType="BIGINT" property="onSaleTime" />
+    <result column="offSaleTime" jdbcType="BIGINT" property="offSaleTime" />
+    <result column="brandId" jdbcType="BIGINT" property="brandId" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="maxPrice" jdbcType="INTEGER" property="maxPrice" />
+    <result column="minPrice" jdbcType="INTEGER" property="minPrice" />
+    <result column="saleCount" jdbcType="INTEGER" property="saleCount" />
+    <result column="viewCount" jdbcType="INTEGER" property="viewCount" />
+    <result column="commentCount" jdbcType="INTEGER" property="commentCount" />
+    <result column="commentScore" jdbcType="INTEGER" property="commentScore" />
+    <result column="viewProperties" jdbcType="VARCHAR" property="viewProperties" />
+    <result column="goodCommentCount" jdbcType="INTEGER" property="goodCommentCount" />
+    <result column="commonCommentCount" jdbcType="INTEGER" property="commonCommentCount" />
+    <result column="badCommentCount" jdbcType="INTEGER" property="badCommentCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, name, subName, code, productType, onSaleTime, offSaleTime, 
+    state, maxPrice, minPrice, saleCount,brandId, viewCount, commentCount, commentScore, viewProperties, 
+    goodCommentCount, commonCommentCount, badCommentCount
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.Product">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_product (createTime, updateTime, name, 
+      subName, code, productType, 
+      onSaleTime, offSaleTime, state, 
+      maxPrice, minPrice, saleCount, 
+      viewCount, commentCount, commentScore, 
+      viewProperties, goodCommentCount, commonCommentCount, 
+      badCommentCount,brandId)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{subName,jdbcType=VARCHAR}, #{code,jdbcType=CHAR}, #{productType,jdbcType=BIGINT}, 
+      #{onSaleTime,jdbcType=BIGINT}, #{offSaleTime,jdbcType=BIGINT}, #{state,jdbcType=TINYINT}, 
+      #{maxPrice,jdbcType=INTEGER}, #{minPrice,jdbcType=INTEGER}, #{saleCount,jdbcType=INTEGER}, 
+      #{viewCount,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, #{commentScore,jdbcType=INTEGER}, 
+      #{viewProperties,jdbcType=VARCHAR}, #{goodCommentCount,jdbcType=INTEGER}, #{commonCommentCount,jdbcType=INTEGER}, 
+      #{badCommentCount,jdbcType=INTEGER},#{brandId,jdbcType=BIGINT})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.Product">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="subName != null">
+        subName,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="productType != null">
+        productType,
+      </if>
+      <if test="onSaleTime != null">
+        onSaleTime,
+      </if>
+      <if test="offSaleTime != null">
+        offSaleTime,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="maxPrice != null">
+        maxPrice,
+      </if>
+      <if test="minPrice != null">
+        minPrice,
+      </if>
+      <if test="saleCount != null">
+        saleCount,
+      </if>
+      <if test="viewCount != null">
+        viewCount,
+      </if>
+      <if test="commentCount != null">
+        commentCount,
+      </if>
+      <if test="commentScore != null">
+        commentScore,
+      </if>
+      <if test="viewProperties != null">
+        viewProperties,
+      </if>
+      <if test="goodCommentCount != null">
+        goodCommentCount,
+      </if>
+      <if test="commonCommentCount != null">
+        commonCommentCount,
+      </if>
+      <if test="badCommentCount != null">
+        badCommentCount,
+      </if>
+      <if test="brandId != null">
+        brandId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subName != null">
+        #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=CHAR},
+      </if>
+      <if test="productType != null">
+        #{productType,jdbcType=BIGINT},
+      </if>
+      <if test="onSaleTime != null">
+        #{onSaleTime,jdbcType=BIGINT},
+      </if>
+      <if test="offSaleTime != null">
+        #{offSaleTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="maxPrice != null">
+        #{maxPrice,jdbcType=INTEGER},
+      </if>
+      <if test="minPrice != null">
+        #{minPrice,jdbcType=INTEGER},
+      </if>
+      <if test="saleCount != null">
+        #{saleCount,jdbcType=INTEGER},
+      </if>
+      <if test="viewCount != null">
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentScore != null">
+        #{commentScore,jdbcType=INTEGER},
+      </if>
+      <if test="viewProperties != null">
+        #{viewProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="goodCommentCount != null">
+        #{goodCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="commonCommentCount != null">
+        #{commonCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="badCommentCount != null">
+        #{badCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.Product">
+    update t_product
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subName != null">
+        subName = #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=CHAR},
+      </if>
+      <if test="productType != null">
+        productType = #{productType,jdbcType=BIGINT},
+      </if>
+      <if test="onSaleTime != null">
+        onSaleTime = #{onSaleTime,jdbcType=BIGINT},
+      </if>
+      <if test="offSaleTime != null">
+        offSaleTime = #{offSaleTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="maxPrice != null">
+        maxPrice = #{maxPrice,jdbcType=INTEGER},
+      </if>
+      <if test="minPrice != null">
+        minPrice = #{minPrice,jdbcType=INTEGER},
+      </if>
+      <if test="saleCount != null">
+        saleCount = #{saleCount,jdbcType=INTEGER},
+      </if>
+      <if test="viewCount != null">
+        viewCount = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        commentCount = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentScore != null">
+        commentScore = #{commentScore,jdbcType=INTEGER},
+      </if>
+      <if test="viewProperties != null">
+        viewProperties = #{viewProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="goodCommentCount != null">
+        goodCommentCount = #{goodCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="commonCommentCount != null">
+        commonCommentCount = #{commonCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="badCommentCount != null">
+        badCommentCount = #{badCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null">
+        brandId = #{brandId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.Product">
+    update t_product
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      subName = #{subName,jdbcType=VARCHAR},
+      code = #{code,jdbcType=CHAR},
+      productType = #{productType,jdbcType=BIGINT},
+      onSaleTime = #{onSaleTime,jdbcType=BIGINT},
+      offSaleTime = #{offSaleTime,jdbcType=BIGINT},
+      state = #{state,jdbcType=TINYINT},
+      maxPrice = #{maxPrice,jdbcType=INTEGER},
+      minPrice = #{minPrice,jdbcType=INTEGER},
+      saleCount = #{saleCount,jdbcType=INTEGER},
+      viewCount = #{viewCount,jdbcType=INTEGER},
+      commentCount = #{commentCount,jdbcType=INTEGER},
+      commentScore = #{commentScore,jdbcType=INTEGER},
+      viewProperties = #{viewProperties,jdbcType=VARCHAR},
+      goodCommentCount = #{goodCommentCount,jdbcType=INTEGER},
+      commonCommentCount = #{commonCommentCount,jdbcType=INTEGER},
+      brandId = #{brandId,jdbcType=BIGINT},
+      badCommentCount = #{badCommentCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <sql id="whereSql">
+  	<where>
+		<if test="keyword!=null and keyword!=''">and p.name like CONCAT('%',#{keyword},'%')</if>
+		<if test="productType!=null">and p.productType=#{productType}</if>
+		<if test="startDate!=null">and p.onSaleTime>=#{startDate}</if>
+		<if test="endDate!=null">and p.onSaleTime&lt;=#{endDate}</if>
+	</where>
+  </sql>
+  
+  <select id="queryTotal" parameterType="cn.itsource.aigou.core.query.BaseQuery" resultType="int">
+  	select count(0) from t_product p
+  	<include refid="whereSql" />
+  </select>
+  
+  <select id="query" parameterType="cn.itsource.aigou.core.query.BaseQuery" resultMap="BaseResultMap">
+  	select * from t_product p 
+  	<include refid="whereSql" /> 
+  	limit #{start},#{rows}
+  </select>
+  
+  <select id="getProperties" parameterType="java.lang.Long" resultType="cn.itsource.aigou.core.domain.Property">
+    select tp.* from t_property tp,t_product p,t_product_property tpp where tp.id=tpp.propertyId and p.id=tpp.productId and p.id=#{productId}
+  </select>
+  
+  <select id="getViewProperties" parameterType="java.lang.Long" resultType="cn.itsource.aigou.core.domain.Property">
+    select tp.* from t_property tp,t_product p,t_product_property tpp where tp.id=tpp.propertyId and p.id=tpp.productId and p.id=#{productId} and tp.type=0
+  </select>
+  
+  <select id="getSkuProperties" parameterType="java.lang.Long" resultType="cn.itsource.aigou.core.domain.Property">
+    select tp.* from t_property tp,t_product p,t_product_property tpp where tp.id=tpp.propertyId and p.id=tpp.productId and p.id=#{productId} and tp.type=1
+  </select>
+  
+  <delete id="deleteProperties" parameterType="java.lang.Long">
+    delete from t_product_property 
+    where productId = #{productId,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="saveProperties" parameterType="list">
+	INSERT INTO t_product_property(productId,propertyId) VALUES 
+	<foreach separator="," index="index" item="item" collection="list"> (#{item.productId},#{item.propertyId}) </foreach>
+  </insert>
+  
+   <delete id="deleteViewProperties" parameterType="java.lang.Long">
+    delete from t_product_view_property 
+    where productId = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="saveViewProperties" parameterType="list">
+	INSERT INTO t_product_view_property(productId,propId,propName,optionId,value) VALUES 
+	<foreach separator="," index="index" item="item" collection="list"> (#{item.productId},#{item.propId},#{item.propName},#{item.optionId},#{item.value}) </foreach>
+  </insert>
+  
+  <select id="getSelectedViewProperties" parameterType="java.lang.Long" resultType="cn.itsource.aigou.core.domain.ProductViewProperty">
+    select * from t_product_view_property where productId=#{productId}
+  </select>
+  
+  <resultMap id="SkuResultMap" type="cn.itsource.aigou.core.domain.Sku">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="productId" jdbcType="BIGINT" property="productId" />
+    <result column="skuCode" jdbcType="CHAR" property="skuCode" />
+    <result column="skuName" jdbcType="VARCHAR" property="skuName" />
+    <result column="marketPrice" jdbcType="INTEGER" property="marketPrice" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="costPrice" jdbcType="INTEGER" property="costPrice" />
+    <result column="saleCount" jdbcType="INTEGER" property="saleCount" />
+    <result column="sortIndex" jdbcType="INTEGER" property="sortIndex" />
+    <result column="availableStock" jdbcType="INTEGER" property="availableStock" />
+    <result column="frozenStock" jdbcType="INTEGER" property="frozenStock" />
+    <result column="skuProperties" jdbcType="VARCHAR" property="skuProperties" />
+    <result column="skuMainPic" jdbcType="VARCHAR" property="skuMainPic" />
+    <collection property="skuPropertyList" javaType="list" ofType="cn.itsource.aigou.core.domain.SkuProperty">
+    	<id column="spId" property="id"/>
+    	<result column="propId" property="propId"/>
+    	<result column="propName" property="propName"/>
+    	<result column="optionId" property="optionId"/>
+    	<result column="value" property="value"/>
+    </collection>
+  </resultMap>
+  
+  <select id="getSkuList" parameterType="java.lang.Long" resultMap="SkuResultMap">
+    select ts.*,tsp.id spId,tsp.propId,tsp.propName,tsp.optionId,tsp.`value` from t_sku ts LEFT JOIN t_sku_property tsp on ts.id = tsp.skuId 
+	where ts.productId=#{productId} order by ts.id
+  </select>
+  
+  <delete id="deleteMedias" parameterType="java.lang.Long">
+    delete from t_product_media 
+    where productId = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="saveMedias" parameterType="list">
+	INSERT INTO t_product_media(productId,resource,updateTime,createTime) VALUES 
+	<foreach separator="," index="index" item="item" collection="list"> (#{item.productId},#{item.resource},#{item.updateTime},#{item.createTime}) </foreach>
+  </insert>
+  
+  <select id="getMedias" parameterType="java.lang.Long" resultType="cn.itsource.aigou.core.domain.ProductMedia">
+    select * from t_product_media where productId=#{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="getExt" parameterType="java.lang.Long" resultType="cn.itsource.aigou.core.domain.ProductExt">
+    select * from t_product_ext where productId=#{id,jdbcType=BIGINT}
+  </select>
+  
+  <update id="onSale" parameterType="java.util.Map">
+  	update t_product set onSaleTime=#{params.timestap},state=1 where id in 
+  	<foreach separator="," open="(" close=")" index="index" item="item" collection="idArr"> #{item}</foreach>
+  </update>
+  
+  <update id="offSale" parameterType="java.util.Map">
+  	update t_product set offSaleTime=#{params.timestap},state=0 where id in 
+  	<foreach separator="," open="(" close=")" index="index" item="item" collection="idArr"> #{item}</foreach>
+  </update>
+ 
+  <update id="updateProductViewProperties">
+  	update t_product set viewProperties = #{1} where id=#{0}
+  </update>
+</mapper>

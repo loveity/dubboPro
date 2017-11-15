@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Built-By: Wei_Wang
+Class-Path: . lib/aigou-core-common-0.0.1-SNAPSHOT.jar lib/fastjson-1.
+ 2.6.jar lib/velocity-1.7.jar lib/commons-collections-3.2.1.jar lib/co
+ mmons-lang-2.4.jar lib/aigou-core-domain-0.0.1-SNAPSHOT.jar lib/dubbo
+ -2.8.4a.jar lib/zkclient-0.9.jar lib/slf4j-api-1.6.1.jar lib/slf4j-lo
+ g4j12-1.6.1.jar lib/log4j-1.2.15.jar lib/mail-1.4.jar lib/activation-
+ 1.1.jar lib/zookeeper-3.4.9.jar lib/jline-0.9.94.jar lib/netty-3.10.5
+ .Final.jar
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.8.0_91
+Main-Class: com.alibaba.dubbo.container.Main
+

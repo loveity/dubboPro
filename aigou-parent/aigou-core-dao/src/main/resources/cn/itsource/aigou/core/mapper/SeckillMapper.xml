@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.SeckillMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.Seckill">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="beginTime" jdbcType="BIGINT" property="beginTime" />
+    <result column="endTime" jdbcType="BIGINT" property="endTime" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="activePic" jdbcType="VARCHAR" property="activePic" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, title, beginTime, endTime, state, description, activePic
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_seckill
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_seckill
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.Seckill">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_seckill (createTime, updateTime, title, 
+      beginTime, endTime, state, 
+      description, activePic)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{beginTime,jdbcType=BIGINT}, #{endTime,jdbcType=BIGINT}, #{state,jdbcType=TINYINT}, 
+      #{description,jdbcType=VARCHAR}, #{activePic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.Seckill">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_seckill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="beginTime != null">
+        beginTime,
+      </if>
+      <if test="endTime != null">
+        endTime,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="activePic != null">
+        activePic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activePic != null">
+        #{activePic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.Seckill">
+    update t_seckill
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        beginTime = #{beginTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null">
+        endTime = #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activePic != null">
+        activePic = #{activePic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.Seckill">
+    update t_seckill
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      beginTime = #{beginTime,jdbcType=BIGINT},
+      endTime = #{endTime,jdbcType=BIGINT},
+      state = #{state,jdbcType=TINYINT},
+      description = #{description,jdbcType=VARCHAR},
+      activePic = #{activePic,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <sql id="whereSql"></sql>
+  
+  <select id="queryTotal" parameterType="cn.itsource.aigou.core.query.BaseQuery" resultType="int">
+  	select count(0) from t_seckill 
+  	<include refid="whereSql" />
+  </select>
+  
+  <select id="query" parameterType="cn.itsource.aigou.core.query.BaseQuery" resultType="cn.itsource.aigou.core.domain.Seckill">
+  	 select * from t_seckill <include refid="whereSql" /> limit #{start},#{rows}
+  </select>
+  
+  <insert id="saveSkuList" parameterType="list">
+  	insert into t_seckill_sku(createTime,updateTime,seckillId,skuName,productId,
+  	skuId,skuPic,price,totalCount,leftCount) values 
+  	<foreach separator="," index="index" item="item" collection="list"> 
+  	(#{item.createTime},#{item.updateTime},#{item.seckillId},#{item.skuName},#{item.productId},
+  	#{item.skuId},#{item.skuPic},#{item.price},#{item.totalCount},#{item.leftCount})
+  	</foreach>
+  </insert>
+  
+  <delete id="deleteBySecKillId" parameterType="java.lang.Long">
+  	delete from t_seckill_sku where seckillId=#{seckillId}
+  </delete>
+  
+  <select id="getSkuList" parameterType="java.lang.Long" resultType="cn.itsource.aigou.core.domain.SeckillSku">
+  	select * from t_seckill_sku where seckillId = #{seckillId}
+  </select>
+  
+  <select id="getByState" resultType="cn.itsource.aigou.core.domain.Seckill" parameterType="java.lang.Byte">
+  	 select * from t_seckill where state=#{state} order by beginTime
+  </select>
+  
+</mapper>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.PayBillMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.PayBill">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="ssoId" jdbcType="BIGINT" property="ssoId" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickName" />
+    <result column="unionPaySn" jdbcType="CHAR" property="unionPaySn" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="businessType" jdbcType="TINYINT" property="businessType" />
+    <result column="businessKey" jdbcType="BIGINT" property="businessKey" />
+    <result column="payChannel" jdbcType="TINYINT" property="payChannel" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="digest" jdbcType="VARCHAR" property="digest" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="originalPayBillId" jdbcType="BIGINT" property="originalPayBillId" />
+    <result column="originalUnionPaySn" jdbcType="CHAR" property="originalUnionPaySn" />
+    <result column="lastPayTime" jdbcType="BIGINT" property="lastPayTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, updateTime, createTime,ssoId,nickName, unionPaySn, money, businessType, businessKey, payChannel, 
+    note, digest, state, originalPayBillId, originalUnionPaySn, lastPayTime
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_pay_bill
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_pay_bill
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.PayBill">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_pay_bill (updateTime, createTime, ssoId, nickName, unionPaySn, 
+      money, businessType, businessKey, 
+      payChannel, note, digest, 
+      state, originalPayBillId, originalUnionPaySn,lastPayTime)
+    values (#{updateTime,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT},#{ssoId,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR},#{unionPaySn,jdbcType=CHAR}, 
+      #{money,jdbcType=INTEGER}, #{businessType,jdbcType=TINYINT}, #{businessKey,jdbcType=BIGINT}, 
+      #{payChannel,jdbcType=TINYINT}, #{note,jdbcType=VARCHAR}, #{digest,jdbcType=VARCHAR}, 
+      #{state,jdbcType=TINYINT}, #{originalPayBillId,jdbcType=BIGINT}, #{originalUnionPaySn,jdbcType=CHAR},
+      #{lastPayTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.PayBill">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_pay_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="ssoId != null">
+        ssoId,
+      </if>
+      <if test="nickName != null">
+        nickName,
+      </if>
+      <if test="unionPaySn != null">
+        unionPaySn,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="businessType != null">
+        businessType,
+      </if>
+      <if test="businessKey != null">
+        businessKey,
+      </if>
+      <if test="payChannel != null">
+        payChannel,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="digest != null">
+        digest,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="originalPayBillId != null">
+        originalPayBillId,
+      </if>
+      <if test="originalUnionPaySn != null">
+        originalUnionPaySn,
+      </if>
+      <if test="lastPayTime != null">
+        lastPayTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="unionPaySn != null">
+        #{unionPaySn,jdbcType=CHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null">
+        #{businessType,jdbcType=TINYINT},
+      </if>
+      <if test="businessKey != null">
+        #{businessKey,jdbcType=BIGINT},
+      </if>
+      <if test="payChannel != null">
+        #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="digest != null">
+        #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="originalPayBillId != null">
+        #{originalPayBillId,jdbcType=BIGINT},
+      </if>
+      <if test="originalUnionPaySn != null">
+        #{originalUnionPaySn,jdbcType=CHAR},
+      </if>
+      <if test="lastPayTime != null">
+        #{lastPayTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.PayBill">
+    update t_pay_bill
+    <set>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        ssoId = #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="nickName != null">
+        nickName = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="unionPaySn != null">
+        unionPaySn = #{unionPaySn,jdbcType=CHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null">
+        businessType = #{businessType,jdbcType=TINYINT},
+      </if>
+      <if test="businessKey != null">
+        businessKey = #{businessKey,jdbcType=BIGINT},
+      </if>
+      <if test="payChannel != null">
+        payChannel = #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="digest != null">
+        digest = #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="originalPayBillId != null">
+        originalPayBillId = #{originalPayBillId,jdbcType=BIGINT},
+      </if>
+      <if test="originalUnionPaySn != null">
+        originalUnionPaySn = #{originalUnionPaySn,jdbcType=CHAR},
+      </if>
+      <if test="lastPayTime != null">
+        lastPayTime = #{lastPayTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.PayBill">
+    update t_pay_bill
+    set updateTime = #{updateTime,jdbcType=BIGINT},
+      createTime = #{createTime,jdbcType=BIGINT},
+      ssoId = #{ssoId,jdbcType=BIGINT},
+      nickName = #{nickName,jdbcType=VARCHAR},
+      unionPaySn = #{unionPaySn,jdbcType=CHAR},
+      money = #{money,jdbcType=INTEGER},
+      businessType = #{businessType,jdbcType=TINYINT},
+      businessKey = #{businessKey,jdbcType=BIGINT},
+      payChannel = #{payChannel,jdbcType=TINYINT},
+      note = #{note,jdbcType=VARCHAR},
+      digest = #{digest,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT},
+      originalPayBillId = #{originalPayBillId,jdbcType=BIGINT},
+      lastPayTime = #{lastPayTime,jdbcType=BIGINT},
+      originalUnionPaySn = #{originalUnionPaySn,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="queryBill" resultMap="BaseResultMap">
+  	select * from t_pay_bill where businessType=#{bisType} and businessKey=#{bisId}
+  </select>
+  
+  <select id="getPayBill" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from t_pay_bill where unionPaySn=#{paySn}
+  </select>
+  
+</mapper>

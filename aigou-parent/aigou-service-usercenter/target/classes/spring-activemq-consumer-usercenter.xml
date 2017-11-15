@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 取消支付申请消息监听适配器 -->
+    <bean id="payCancelConfirmListenerAdapter" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+    	<!-- 指定消息处理类 -->
+        <property name="delegate">
+            <bean class="cn.itsource.aigou.mq.PayCancelConfirmConsumer"/>
+        </property>
+        <!-- 指定消息处理类的方法,如果不配置默认为handleMessage -->
+        <property name="defaultListenerMethod" value="receiveMessage"/>
+    </bean>
+  
+    <!-- 消息监听适配器对应的监听容器 -->
+    <bean id="payCancelConfirmListenerAdapterContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">  
+        <property name="connectionFactory" ref="connectionFactory"/>  
+        <property name="destination" ref="payCancelConfirmQueueDestination"/>  
+        <property name="messageListener" ref="payCancelConfirmListenerAdapter"/>
+    </bean>
+    
+</beans>

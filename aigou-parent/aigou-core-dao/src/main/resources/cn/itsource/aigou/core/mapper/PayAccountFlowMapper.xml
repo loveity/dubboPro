@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.PayAccountFlowMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.PayAccountFlow">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="ssoId" jdbcType="BIGINT" property="ssoId" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickName" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="avilableBalance" jdbcType="INTEGER" property="avilableBalance" />
+    <result column="frozenBalance" jdbcType="INTEGER" property="frozenBalance" />
+    <result column="businessType" jdbcType="TINYINT" property="businessType" />
+    <result column="businessName" jdbcType="VARCHAR" property="businessName" />
+    <result column="businessKey" jdbcType="BIGINT" property="businessKey" />
+    <result column="payChannel" jdbcType="TINYINT" property="payChannel" />
+    <result column="payChannelName" jdbcType="VARCHAR" property="payChannelName" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="digest" jdbcType="VARCHAR" property="digest" />
+    <result column="unionPaySeq" jdbcType="CHAR" property="unionPaySeq" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, ssoId, nickName, money, type, avilableBalance, frozenBalance, businessType, 
+    businessName, businessKey, payChannel, payChannelName, note, digest, unionPaySeq
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_pay_account_flow
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_pay_account_flow
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.PayAccountFlow">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_pay_account_flow (createTime, ssoId, nickName, 
+      money, type, avilableBalance, 
+      frozenBalance, businessType, businessName, 
+      businessKey, payChannel, payChannelName, 
+      note, digest, unionPaySeq
+      )
+    values (#{createTime,jdbcType=BIGINT}, #{ssoId,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, 
+      #{money,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{avilableBalance,jdbcType=INTEGER}, 
+      #{frozenBalance,jdbcType=INTEGER}, #{businessType,jdbcType=TINYINT}, #{businessName,jdbcType=VARCHAR}, 
+      #{businessKey,jdbcType=BIGINT}, #{payChannel,jdbcType=TINYINT}, #{payChannelName,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{digest,jdbcType=VARCHAR}, #{unionPaySeq,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.PayAccountFlow">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_pay_account_flow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="ssoId != null">
+        ssoId,
+      </if>
+      <if test="nickName != null">
+        nickName,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="avilableBalance != null">
+        avilableBalance,
+      </if>
+      <if test="frozenBalance != null">
+        frozenBalance,
+      </if>
+      <if test="businessType != null">
+        businessType,
+      </if>
+      <if test="businessName != null">
+        businessName,
+      </if>
+      <if test="businessKey != null">
+        businessKey,
+      </if>
+      <if test="payChannel != null">
+        payChannel,
+      </if>
+      <if test="payChannelName != null">
+        payChannelName,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="digest != null">
+        digest,
+      </if>
+      <if test="unionPaySeq != null">
+        unionPaySeq,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="avilableBalance != null">
+        #{avilableBalance,jdbcType=INTEGER},
+      </if>
+      <if test="frozenBalance != null">
+        #{frozenBalance,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null">
+        #{businessType,jdbcType=TINYINT},
+      </if>
+      <if test="businessName != null">
+        #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessKey != null">
+        #{businessKey,jdbcType=BIGINT},
+      </if>
+      <if test="payChannel != null">
+        #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="payChannelName != null">
+        #{payChannelName,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="digest != null">
+        #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="unionPaySeq != null">
+        #{unionPaySeq,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.PayAccountFlow">
+    update t_pay_account_flow
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        ssoId = #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="nickName != null">
+        nickName = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="avilableBalance != null">
+        avilableBalance = #{avilableBalance,jdbcType=INTEGER},
+      </if>
+      <if test="frozenBalance != null">
+        frozenBalance = #{frozenBalance,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null">
+        businessType = #{businessType,jdbcType=TINYINT},
+      </if>
+      <if test="businessName != null">
+        businessName = #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessKey != null">
+        businessKey = #{businessKey,jdbcType=BIGINT},
+      </if>
+      <if test="payChannel != null">
+        payChannel = #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="payChannelName != null">
+        payChannelName = #{payChannelName,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="digest != null">
+        digest = #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="unionPaySeq != null">
+        unionPaySeq = #{unionPaySeq,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.PayAccountFlow">
+    update t_pay_account_flow
+    set createTime = #{createTime,jdbcType=BIGINT},
+      ssoId = #{ssoId,jdbcType=BIGINT},
+      nickName = #{nickName,jdbcType=VARCHAR},
+      money = #{money,jdbcType=INTEGER},
+      type = #{type,jdbcType=TINYINT},
+      avilableBalance = #{avilableBalance,jdbcType=INTEGER},
+      frozenBalance = #{frozenBalance,jdbcType=INTEGER},
+      businessType = #{businessType,jdbcType=TINYINT},
+      businessName = #{businessName,jdbcType=VARCHAR},
+      businessKey = #{businessKey,jdbcType=BIGINT},
+      payChannel = #{payChannel,jdbcType=TINYINT},
+      payChannelName = #{payChannelName,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      digest = #{digest,jdbcType=VARCHAR},
+      unionPaySeq = #{unionPaySeq,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

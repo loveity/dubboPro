@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.SkuPropertyMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.SkuProperty">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="skuId" jdbcType="BIGINT" property="skuId" />
+    <result column="propId" jdbcType="BIGINT" property="propId" />
+    <result column="propName" jdbcType="VARCHAR" property="propName" />
+    <result column="optionId" jdbcType="BIGINT" property="optionId" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, skuId, propId, propName, optionId, value
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sku_property
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_sku_property
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.SkuProperty">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_sku_property (createTime, updateTime, skuId, 
+      propId, propName, optionId, 
+      value)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{skuId,jdbcType=BIGINT}, 
+      #{propId,jdbcType=BIGINT}, #{propName,jdbcType=VARCHAR}, #{optionId,jdbcType=BIGINT}, 
+      #{value,jdbcType=VARCHAR})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.SkuProperty">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_sku_property
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="skuId != null">
+        skuId,
+      </if>
+      <if test="propId != null">
+        propId,
+      </if>
+      <if test="propName != null">
+        propName,
+      </if>
+      <if test="optionId != null">
+        optionId,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="propId != null">
+        #{propId,jdbcType=BIGINT},
+      </if>
+      <if test="propName != null">
+        #{propName,jdbcType=VARCHAR},
+      </if>
+      <if test="optionId != null">
+        #{optionId,jdbcType=BIGINT},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.SkuProperty">
+    update t_sku_property
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        skuId = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="propId != null">
+        propId = #{propId,jdbcType=BIGINT},
+      </if>
+      <if test="propName != null">
+        propName = #{propName,jdbcType=VARCHAR},
+      </if>
+      <if test="optionId != null">
+        optionId = #{optionId,jdbcType=BIGINT},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.SkuProperty">
+    update t_sku_property
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      skuId = #{skuId,jdbcType=BIGINT},
+      propId = #{propId,jdbcType=BIGINT},
+      propName = #{propName,jdbcType=VARCHAR},
+      optionId = #{optionId,jdbcType=BIGINT},
+      value = #{value,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

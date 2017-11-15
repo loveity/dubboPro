@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.Order">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="ssoId" jdbcType="BIGINT" property="ssoId" />
+    <result column="orderSn" jdbcType="CHAR" property="orderSn" />
+    <result column="storeId" jdbcType="BIGINT" property="storeId" />
+    <result column="storeName" jdbcType="VARCHAR" property="storeName" />
+    <result column="leaveword" jdbcType="VARCHAR" property="leaveword" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="carriageFee" jdbcType="INTEGER" property="carriageFee" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="totalMoney" jdbcType="INTEGER" property="totalMoney" />
+    <result column="discountMoney" jdbcType="INTEGER" property="discountMoney" />
+    <result column="realMoney" jdbcType="INTEGER" property="realMoney" />
+    <result column="payMoney" jdbcType="INTEGER" property="payMoney" />
+    <result column="payChannel" jdbcType="TINYINT" property="payChannel" />
+    <result column="payTime" jdbcType="BIGINT" property="payTime" />
+    <result column="couponId" jdbcType="BIGINT" property="couponId" />
+    <result column="couponMoney" jdbcType="INTEGER" property="couponMoney" />
+    <result column="promotionId" jdbcType="BIGINT" property="promotionId" />
+    <result column="promotionMoney" jdbcType="INTEGER" property="promotionMoney" />
+    <result column="orderFrom" jdbcType="TINYINT" property="orderFrom" />
+    <result column="finishedTime" jdbcType="BIGINT" property="finishedTime" />
+    <result column="commentStatus" jdbcType="TINYINT" property="commentStatus" />
+    <result column="commentTime" jdbcType="BIGINT" property="commentTime" />
+    <result column="shipStore" jdbcType="BIGINT" property="shipStore" />
+    <result column="shipSn" jdbcType="VARCHAR" property="shipSn" />
+    <result column="shipTime" jdbcType="VARCHAR" property="shipTime" />
+    <result column="shipSendTime" jdbcType="BIGINT" property="shipSendTime" />
+    <result column="digest" jdbcType="VARCHAR" property="digest" />
+    <result column="saleReturnState" jdbcType="TINYINT" property="saleReturnState" />
+    <result column="returnOrderSn" jdbcType="CHAR" property="returnOrderSn" />
+    <result column="changeOrderSn" jdbcType="CHAR" property="changeOrderSn" />
+    <result column="needBill" jdbcType="TINYINT" property="needBill" />
+    <result column="lastConfirmShipTime" jdbcType="BIGINT" property="lastConfirmShipTime" />
+    <result column="lastPayTime" jdbcType="BIGINT" property="lastPayTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, ssoId, orderSn, storeId, storeName, leaveword, state, 
+    carriageFee, remark, totalMoney, discountMoney, realMoney, payMoney, payChannel, 
+    payTime, couponId, couponMoney, promotionId, promotionMoney, orderFrom, finishedTime, 
+    commentStatus, commentTime, shipStore, shipSn, shipTime, shipSendTime,digest, saleReturnState, 
+    returnOrderSn, changeOrderSn, needBill,lastConfirmShipTime,lastPayTime
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.Order">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order (createTime, updateTime, ssoId, 
+      orderSn, storeId, storeName, 
+      leaveword, state, carriageFee, 
+      remark, totalMoney, discountMoney, 
+      realMoney, payMoney, payChannel, 
+      payTime, couponId, couponMoney, 
+      promotionId, promotionMoney, orderFrom, 
+      finishedTime, commentStatus, commentTime, 
+      shipStore, shipSn, shipTime, shipSendTime,
+      digest, saleReturnState, returnOrderSn, 
+      changeOrderSn, needBill,lastConfirmShipTime,lastPayTime)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{ssoId,jdbcType=BIGINT}, 
+      #{orderSn,jdbcType=CHAR}, #{storeId,jdbcType=BIGINT}, #{storeName,jdbcType=VARCHAR}, 
+      #{leaveword,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}, #{carriageFee,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{totalMoney,jdbcType=INTEGER}, #{discountMoney,jdbcType=INTEGER}, 
+      #{realMoney,jdbcType=INTEGER}, #{payMoney,jdbcType=INTEGER}, #{payChannel,jdbcType=TINYINT}, 
+      #{payTime,jdbcType=BIGINT}, #{couponId,jdbcType=BIGINT}, #{couponMoney,jdbcType=INTEGER}, 
+      #{promotionId,jdbcType=BIGINT}, #{promotionMoney,jdbcType=INTEGER}, #{orderFrom,jdbcType=TINYINT}, 
+      #{finishedTime,jdbcType=BIGINT}, #{commentStatus,jdbcType=TINYINT}, #{commentTime,jdbcType=BIGINT}, 
+      #{shipStore,jdbcType=BIGINT}, #{shipSn,jdbcType=VARCHAR}, #{shipTime,jdbcType=VARCHAR}, #{shipSendTime,jdbcType=BIGINT},
+      #{digest,jdbcType=VARCHAR}, #{saleReturnState,jdbcType=TINYINT}, #{returnOrderSn,jdbcType=CHAR}, 
+      #{changeOrderSn,jdbcType=CHAR}, #{needBill,jdbcType=TINYINT},
+      #{lastConfirmShipTime,jdbcType=BIGINT}, #{lastPayTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.Order">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="ssoId != null">
+        ssoId,
+      </if>
+      <if test="orderSn != null">
+        orderSn,
+      </if>
+      <if test="storeId != null">
+        storeId,
+      </if>
+      <if test="storeName != null">
+        storeName,
+      </if>
+      <if test="leaveword != null">
+        leaveword,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="carriageFee != null">
+        carriageFee,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="totalMoney != null">
+        totalMoney,
+      </if>
+      <if test="discountMoney != null">
+        discountMoney,
+      </if>
+      <if test="realMoney != null">
+        realMoney,
+      </if>
+      <if test="payMoney != null">
+        payMoney,
+      </if>
+      <if test="payChannel != null">
+        payChannel,
+      </if>
+      <if test="payTime != null">
+        payTime,
+      </if>
+      <if test="couponId != null">
+        couponId,
+      </if>
+      <if test="couponMoney != null">
+        couponMoney,
+      </if>
+      <if test="promotionId != null">
+        promotionId,
+      </if>
+      <if test="promotionMoney != null">
+        promotionMoney,
+      </if>
+      <if test="orderFrom != null">
+        orderFrom,
+      </if>
+      <if test="finishedTime != null">
+        finishedTime,
+      </if>
+      <if test="commentStatus != null">
+        commentStatus,
+      </if>
+      <if test="commentTime != null">
+        commentTime,
+      </if>
+      <if test="shipStore != null">
+        shipStore,
+      </if>
+      <if test="shipSn != null">
+        shipSn,
+      </if>
+      <if test="shipTime != null">
+        shipTime,
+      </if>
+      <if test="shipSendTime != null">
+        shipSendTime,
+      </if>
+      <if test="digest != null">
+        digest,
+      </if>
+      <if test="saleReturnState != null">
+        saleReturnState,
+      </if>
+      <if test="returnOrderSn != null">
+        returnOrderSn,
+      </if>
+      <if test="changeOrderSn != null">
+        changeOrderSn,
+      </if>
+      <if test="needBill != null">
+        needBill,
+      </if>
+      <if test="lastConfirmShipTime != null">
+        lastConfirmShipTime,
+      </if>
+      <if test="lastPayTime != null">
+        lastPayTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null">
+        #{orderSn,jdbcType=CHAR},
+      </if>
+      <if test="storeId != null">
+        #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeName != null">
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveword != null">
+        #{leaveword,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="carriageFee != null">
+        #{carriageFee,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMoney != null">
+        #{totalMoney,jdbcType=INTEGER},
+      </if>
+      <if test="discountMoney != null">
+        #{discountMoney,jdbcType=INTEGER},
+      </if>
+      <if test="realMoney != null">
+        #{realMoney,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null">
+        #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="payChannel != null">
+        #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=BIGINT},
+      </if>
+      <if test="couponId != null">
+        #{couponId,jdbcType=BIGINT},
+      </if>
+      <if test="couponMoney != null">
+        #{couponMoney,jdbcType=INTEGER},
+      </if>
+      <if test="promotionId != null">
+        #{promotionId,jdbcType=BIGINT},
+      </if>
+      <if test="promotionMoney != null">
+        #{promotionMoney,jdbcType=INTEGER},
+      </if>
+      <if test="orderFrom != null">
+        #{orderFrom,jdbcType=TINYINT},
+      </if>
+      <if test="finishedTime != null">
+        #{finishedTime,jdbcType=BIGINT},
+      </if>
+      <if test="commentStatus != null">
+        #{commentStatus,jdbcType=TINYINT},
+      </if>
+      <if test="commentTime != null">
+        #{commentTime,jdbcType=BIGINT},
+      </if>
+      <if test="shipStore != null">
+        #{shipStore,jdbcType=BIGINT},
+      </if>
+      <if test="shipSn != null">
+        #{shipSn,jdbcType=VARCHAR},
+      </if>
+      <if test="shipTime != null">
+        #{shipTime,jdbcType=VARCHAR},
+      </if>
+      <if test="shipSendTime != null">
+        #{shipSendTime,jdbcType=BIGINT},
+      </if>
+      <if test="digest != null">
+        #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="saleReturnState != null">
+        #{saleReturnState,jdbcType=TINYINT},
+      </if>
+      <if test="returnOrderSn != null">
+        #{returnOrderSn,jdbcType=CHAR},
+      </if>
+      <if test="changeOrderSn != null">
+        #{changeOrderSn,jdbcType=CHAR},
+      </if>
+      <if test="needBill != null">
+        #{needBill,jdbcType=TINYINT},
+      </if>
+      <if test="lastConfirmShipTime != null">
+        #{lastConfirmShipTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastPayTime != null">
+        #{lastPayTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.Order">
+    update t_order
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        ssoId = #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null">
+        orderSn = #{orderSn,jdbcType=CHAR},
+      </if>
+      <if test="storeId != null">
+        storeId = #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeName != null">
+        storeName = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveword != null">
+        leaveword = #{leaveword,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="carriageFee != null">
+        carriageFee = #{carriageFee,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="totalMoney != null">
+        totalMoney = #{totalMoney,jdbcType=INTEGER},
+      </if>
+      <if test="discountMoney != null">
+        discountMoney = #{discountMoney,jdbcType=INTEGER},
+      </if>
+      <if test="realMoney != null">
+        realMoney = #{realMoney,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null">
+        payMoney = #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="payChannel != null">
+        payChannel = #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="payTime != null">
+        payTime = #{payTime,jdbcType=BIGINT},
+      </if>
+      <if test="couponId != null">
+        couponId = #{couponId,jdbcType=BIGINT},
+      </if>
+      <if test="couponMoney != null">
+        couponMoney = #{couponMoney,jdbcType=INTEGER},
+      </if>
+      <if test="promotionId != null">
+        promotionId = #{promotionId,jdbcType=BIGINT},
+      </if>
+      <if test="promotionMoney != null">
+        promotionMoney = #{promotionMoney,jdbcType=INTEGER},
+      </if>
+      <if test="orderFrom != null">
+        orderFrom = #{orderFrom,jdbcType=TINYINT},
+      </if>
+      <if test="finishedTime != null">
+        finishedTime = #{finishedTime,jdbcType=BIGINT},
+      </if>
+      <if test="commentStatus != null">
+        commentStatus = #{commentStatus,jdbcType=TINYINT},
+      </if>
+      <if test="commentTime != null">
+        commentTime = #{commentTime,jdbcType=BIGINT},
+      </if>
+      <if test="shipStore != null">
+        shipStore = #{shipStore,jdbcType=BIGINT},
+      </if>
+      <if test="shipSn != null">
+        shipSn = #{shipSn,jdbcType=VARCHAR},
+      </if>
+      <if test="shipTime != null">
+        shipTime = #{shipTime,jdbcType=VARCHAR},
+      </if>
+      <if test="shipSendTime != null">
+        shipSendTime = #{shipSendTime,jdbcType=BIGINT},
+      </if>
+      <if test="digest != null">
+        digest = #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="saleReturnState != null">
+        saleReturnState = #{saleReturnState,jdbcType=TINYINT},
+      </if>
+      <if test="returnOrderSn != null">
+        returnOrderSn = #{returnOrderSn,jdbcType=CHAR},
+      </if>
+      <if test="changeOrderSn != null">
+        changeOrderSn = #{changeOrderSn,jdbcType=CHAR},
+      </if>
+      <if test="needBill != null">
+        needBill = #{needBill,jdbcType=TINYINT},
+      </if>
+      <if test="lastConfirmShipTime != null">
+        lastConfirmShipTime = #{lastConfirmShipTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastPayTime != null">
+        lastPayTime = #{lastPayTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.Order">
+    update t_order
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      ssoId = #{ssoId,jdbcType=BIGINT},
+      orderSn = #{orderSn,jdbcType=CHAR},
+      storeId = #{storeId,jdbcType=BIGINT},
+      storeName = #{storeName,jdbcType=VARCHAR},
+      leaveword = #{leaveword,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT},
+      carriageFee = #{carriageFee,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      totalMoney = #{totalMoney,jdbcType=INTEGER},
+      discountMoney = #{discountMoney,jdbcType=INTEGER},
+      realMoney = #{realMoney,jdbcType=INTEGER},
+      payMoney = #{payMoney,jdbcType=INTEGER},
+      payChannel = #{payChannel,jdbcType=TINYINT},
+      payTime = #{payTime,jdbcType=BIGINT},
+      couponId = #{couponId,jdbcType=BIGINT},
+      couponMoney = #{couponMoney,jdbcType=INTEGER},
+      promotionId = #{promotionId,jdbcType=BIGINT},
+      promotionMoney = #{promotionMoney,jdbcType=INTEGER},
+      orderFrom = #{orderFrom,jdbcType=TINYINT},
+      finishedTime = #{finishedTime,jdbcType=BIGINT},
+      commentStatus = #{commentStatus,jdbcType=TINYINT},
+      commentTime = #{commentTime,jdbcType=BIGINT},
+      shipStore = #{shipStore,jdbcType=BIGINT},
+      shipSn = #{shipSn,jdbcType=VARCHAR},
+      shipTime = #{shipTime,jdbcType=VARCHAR},
+      shipSendTime = #{shipSendTime,jdbcType=BIGINT},
+      digest = #{digest,jdbcType=VARCHAR},
+      saleReturnState = #{saleReturnState,jdbcType=TINYINT},
+      returnOrderSn = #{returnOrderSn,jdbcType=CHAR},
+      changeOrderSn = #{changeOrderSn,jdbcType=CHAR},
+      lastConfirmShipTime = #{lastConfirmShipTime,jdbcType=BIGINT},
+      lastPayTime = #{lastPayTime,jdbcType=BIGINT},
+      needBill = #{needBill,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <resultMap id="FullResultMap" type="cn.itsource.aigou.core.domain.Order">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="ssoId" jdbcType="BIGINT" property="ssoId" />
+    <result column="orderSn" jdbcType="CHAR" property="orderSn" />
+    <result column="storeId" jdbcType="BIGINT" property="storeId" />
+    <result column="storeName" jdbcType="VARCHAR" property="storeName" />
+    <result column="leaveword" jdbcType="VARCHAR" property="leaveword" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="carriageFee" jdbcType="INTEGER" property="carriageFee" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="totalMoney" jdbcType="INTEGER" property="totalMoney" />
+    <result column="discountMoney" jdbcType="INTEGER" property="discountMoney" />
+    <result column="realMoney" jdbcType="INTEGER" property="realMoney" />
+    <result column="payMoney" jdbcType="INTEGER" property="payMoney" />
+    <result column="payChannel" jdbcType="TINYINT" property="payChannel" />
+    <result column="payTime" jdbcType="BIGINT" property="payTime" />
+    <result column="couponId" jdbcType="BIGINT" property="couponId" />
+    <result column="couponMoney" jdbcType="INTEGER" property="couponMoney" />
+    <result column="promotionId" jdbcType="BIGINT" property="promotionId" />
+    <result column="promotionMoney" jdbcType="INTEGER" property="promotionMoney" />
+    <result column="orderFrom" jdbcType="TINYINT" property="orderFrom" />
+    <result column="finishedTime" jdbcType="BIGINT" property="finishedTime" />
+    <result column="commentStatus" jdbcType="TINYINT" property="commentStatus" />
+    <result column="commentTime" jdbcType="BIGINT" property="commentTime" />
+    <result column="shipStore" jdbcType="BIGINT" property="shipStore" />
+    <result column="shipSn" jdbcType="VARCHAR" property="shipSn" />
+    <result column="shipTime" jdbcType="VARCHAR" property="shipTime" />
+    <result column="shipSendTime" jdbcType="BIGINT" property="shipSendTime" />
+    <result column="digest" jdbcType="VARCHAR" property="digest" />
+    <result column="saleReturnState" jdbcType="TINYINT" property="saleReturnState" />
+    <result column="returnOrderSn" jdbcType="CHAR" property="returnOrderSn" />
+    <result column="changeOrderSn" jdbcType="CHAR" property="changeOrderSn" />
+    <result column="needBill" jdbcType="TINYINT" property="needBill" />
+    <result column="lastConfirmShipTime" jdbcType="BIGINT" property="lastConfirmShipTime" />
+    <result column="lastPayTime" jdbcType="BIGINT" property="lastPayTime" />
+    <association property="orderAddress" javaType="cn.itsource.aigou.core.domain.OrderAddress">
+    	<id column="oaid" property="id" />
+    	<result column="reciver" property="reciver"/>
+    	<result column="fullAddress" property="fullAddress"/>
+    	<result column="phone" property="phone"/>
+    </association>
+    <collection property="detailList" javaType="list" ofType="cn.itsource.aigou.core.domain.OrderDetail">
+    	<id column="odid" property="id"/>
+    	<result column="name" property="name"/>
+    	<result column="skuId" property="skuId"/>
+    	<result column="productId" property="productId"/>
+    	<result column="skuMainPic" property="skuMainPic"/>
+    	<result column="skuProperties" property="skuProperties"/>
+    	<result column="marketPrice" property="marketPrice"/>
+    	<result column="price" property="price"/>
+    	<result column="amount" property="amount"/>
+    </collection>
+  </resultMap>
+
+   <sql id="whereSql">
+  	<where>
+		<if test="keyword!=null and keyword!=''">and (digest like CONCAT('%',#{keyword},'%') or orderSn=#{keyword})</if>
+		<if test="state!=null and state!=-1">
+			and state=#{state}
+		</if>
+		<if test="isComment!=null">
+			and commentStatus=#{isComment}
+		</if>
+		<if test="saleReturnState!=null">
+			and saleReturnState=#{saleReturnState}
+		</if>
+		and state&lt;&gt;9
+	</where>
+  </sql>
+  
+  <select id="queryTotal" parameterType="cn.itsource.aigou.core.query.BaseQuery" resultType="int">
+  	select count(0) from t_order o
+  	<include refid="whereSql" />
+  </select>
+  
+  <select id="query" parameterType="cn.itsource.aigou.core.query.BaseQuery" resultMap="FullResultMap">
+  	 select m.*, 
+  	 oa.id oaid,oa.reciver,oa.fullAddress,oa.phone, 
+  	 od.id odid,od.name,od.skuId,od.productId,od.skuMainPic,od.skuProperties,od.marketPrice,od.price,od.amount 
+  	 from (select * from t_order <include refid="whereSql" /> limit #{start},#{rows}) m 
+  	 left join t_order_address oa on oa.orderId=m.id 
+  	 left join t_order_detail od on od.orderId=m.id 
+  	 order by m.id desc
+  </select>
+  
+  <select id="querySta" resultType="java.lang.Integer">
+  	select count(0) from t_order where ssoId=#{ssoId} and state&lt;&gt;9 
+  	<if test="state!=null and state!=-1">
+  		and state=#{state}
+  	</if>
+  </select>
+  
+  <select id="queryStaComment" resultType="java.lang.Integer">
+  	select count(0) from t_order where ssoId=#{ssoId} and state=3 and commentStatus=0
+  </select>
+  
+  <select id="getBySn" parameterType="java.lang.String" resultMap="FullResultMap">
+  	 select m.*, 
+  	 oa.id oaid,oa.reciver,oa.fullAddress,oa.phone, 
+  	 od.id odid,od.name,od.skuId,od.productId,od.skuMainPic,od.skuProperties,od.marketPrice,od.price,od.amount 
+  	 from (select * from t_order where orderSn=#{orderSn}) m 
+  	 left join t_order_address oa on oa.orderId=m.id 
+  	 left join t_order_detail od on od.orderId=m.id 
+  </select>
+  
+  <select id="getById" parameterType="java.lang.Long" resultMap="FullResultMap">
+  	 select m.*, 
+  	 oa.id oaid,oa.reciver,oa.fullAddress,oa.phone, 
+  	 od.id odid,od.name,od.skuId,od.productId,od.skuMainPic,od.skuProperties,od.marketPrice,od.price,od.amount 
+  	 from (select * from t_order where id=#{id}) m 
+  	 left join t_order_address oa on oa.orderId=m.id 
+  	 left join t_order_detail od on od.orderId=m.id 
+  </select>
+  
+  <delete id="logicDeleteBatch">
+  	update t_order set state = 9 where ssoId=#{ssoId} and id in 
+  	<foreach collection="orderIdArr" item="orderId" open="(" close=")" separator=",">#{orderId}</foreach>
+  </delete>
+  
+</mapper>

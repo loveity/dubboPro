@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.CouponMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.Coupon">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="couponId" jdbcType="BIGINT" property="couponId" />
+    <result column="validateTime" jdbcType="BIGINT" property="validateTime" />
+    <result column="scopeRules" jdbcType="BIGINT" property="scopeRules" />
+    <result column="promotionRules" jdbcType="BIGINT" property="promotionRules" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, couponId, validateTime, scopeRules, promotionRules, state
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_coupon
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_coupon
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.Coupon">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_coupon (createTime, updateTime, couponId, 
+      validateTime, scopeRules, promotionRules, 
+      state)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{couponId,jdbcType=BIGINT}, 
+      #{validateTime,jdbcType=BIGINT}, #{scopeRules,jdbcType=BIGINT}, #{promotionRules,jdbcType=BIGINT}, 
+      #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.Coupon">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_coupon
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="couponId != null">
+        couponId,
+      </if>
+      <if test="validateTime != null">
+        validateTime,
+      </if>
+      <if test="scopeRules != null">
+        scopeRules,
+      </if>
+      <if test="promotionRules != null">
+        promotionRules,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="couponId != null">
+        #{couponId,jdbcType=BIGINT},
+      </if>
+      <if test="validateTime != null">
+        #{validateTime,jdbcType=BIGINT},
+      </if>
+      <if test="scopeRules != null">
+        #{scopeRules,jdbcType=BIGINT},
+      </if>
+      <if test="promotionRules != null">
+        #{promotionRules,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.Coupon">
+    update t_coupon
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="couponId != null">
+        couponId = #{couponId,jdbcType=BIGINT},
+      </if>
+      <if test="validateTime != null">
+        validateTime = #{validateTime,jdbcType=BIGINT},
+      </if>
+      <if test="scopeRules != null">
+        scopeRules = #{scopeRules,jdbcType=BIGINT},
+      </if>
+      <if test="promotionRules != null">
+        promotionRules = #{promotionRules,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.Coupon">
+    update t_coupon
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      couponId = #{couponId,jdbcType=BIGINT},
+      validateTime = #{validateTime,jdbcType=BIGINT},
+      scopeRules = #{scopeRules,jdbcType=BIGINT},
+      promotionRules = #{promotionRules,jdbcType=BIGINT},
+      state = #{state,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

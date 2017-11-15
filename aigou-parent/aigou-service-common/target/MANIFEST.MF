@@ -1,0 +1,45 @@
+Manifest-Version: 1.0
+Built-By: Wei_Wang
+Class-Path: . lib/aigou-core-common-0.0.1-SNAPSHOT.jar lib/fastjson-1.
+ 2.6.jar lib/velocity-1.7.jar lib/commons-lang-2.4.jar lib/aigou-core-
+ config-0.0.1-SNAPSHOT.jar lib/aigou-facade-base-0.0.1-SNAPSHOT.jar li
+ b/aigou-core-domain-0.0.1-SNAPSHOT.jar lib/dubbo-2.8.4a.jar lib/zkcli
+ ent-0.9.jar lib/slf4j-api-1.6.1.jar lib/slf4j-log4j12-1.6.1.jar lib/z
+ ookeeper-3.4.9.jar lib/jline-0.9.94.jar lib/netty-3.10.5.Final.jar li
+ b/aigou-mq-base-0.0.1-SNAPSHOT.jar lib/spring-jms-4.1.2.RELEASE.jar l
+ ib/spring-aop-4.1.2.RELEASE.jar lib/aopalliance-1.0.jar lib/spring-be
+ ans-4.1.2.RELEASE.jar lib/spring-context-4.1.2.RELEASE.jar lib/spring
+ -expression-4.1.2.RELEASE.jar lib/spring-core-4.1.2.RELEASE.jar lib/s
+ pring-messaging-4.1.2.RELEASE.jar lib/spring-tx-4.1.2.RELEASE.jar lib
+ /jsr250-api-1.0.jar lib/activemq-all-5.14.4.jar lib/commons-pool2-2.0
+ .jar lib/qiniu-java-sdk-7.2.4.jar lib/okhttp-3.6.0.jar lib/okio-1.11.
+ 0.jar lib/happy-dns-java-0.1.4.jar lib/transport-5.2.2.jar lib/elasti
+ csearch-5.2.2.jar lib/lucene-core-6.4.1.jar lib/lucene-analyzers-comm
+ on-6.4.1.jar lib/lucene-backward-codecs-6.4.1.jar lib/lucene-grouping
+ -6.4.1.jar lib/lucene-highlighter-6.4.1.jar lib/lucene-join-6.4.1.jar
+  lib/lucene-memory-6.4.1.jar lib/lucene-misc-6.4.1.jar lib/lucene-que
+ ries-6.4.1.jar lib/lucene-queryparser-6.4.1.jar lib/lucene-sandbox-6.
+ 4.1.jar lib/lucene-spatial-6.4.1.jar lib/lucene-spatial-extras-6.4.1.
+ jar lib/lucene-spatial3d-6.4.1.jar lib/lucene-suggest-6.4.1.jar lib/s
+ ecuresm-1.1.jar lib/jopt-simple-5.0.2.jar lib/hppc-0.7.1.jar lib/joda
+ -time-2.9.5.jar lib/snakeyaml-1.15.jar lib/jackson-core-2.8.6.jar lib
+ /jackson-dataformat-smile-2.8.6.jar lib/jackson-dataformat-yaml-2.8.6
+ .jar lib/jackson-dataformat-cbor-2.8.6.jar lib/t-digest-3.0.jar lib/H
+ drHistogram-2.1.6.jar lib/jna-4.2.2.jar lib/transport-netty3-client-5
+ .2.2.jar lib/transport-netty4-client-5.2.2.jar lib/netty-buffer-4.1.7
+ .Final.jar lib/netty-codec-4.1.7.Final.jar lib/netty-codec-http-4.1.7
+ .Final.jar lib/netty-common-4.1.7.Final.jar lib/netty-handler-4.1.7.F
+ inal.jar lib/netty-resolver-4.1.7.Final.jar lib/netty-transport-4.1.7
+ .Final.jar lib/reindex-client-5.2.2.jar lib/rest-5.2.2.jar lib/httpas
+ yncclient-4.1.2.jar lib/httpcore-nio-4.4.5.jar lib/lang-mustache-clie
+ nt-5.2.2.jar lib/compiler-0.9.3.jar lib/percolator-client-5.2.2.jar l
+ ib/log4j-api-2.7.jar lib/log4j-core-2.7.jar lib/commons-beanutils-1.9
+ .3.jar lib/commons-logging-1.2.jar lib/commons-collections-3.2.2.jar 
+ lib/dom4j-1.6.1.jar lib/xml-apis-1.0.b2.jar lib/android-logging-log4j
+ -1.0.3.jar lib/log4j-1.2.17.jar lib/httpclient-4.5.2.jar lib/httpcore
+ -4.4.4.jar lib/commons-codec-1.9.jar lib/gson-2.2.4.jar lib/jedis-2.9
+ .0.jar
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.8.0_91
+Main-Class: com.alibaba.dubbo.container.Main
+

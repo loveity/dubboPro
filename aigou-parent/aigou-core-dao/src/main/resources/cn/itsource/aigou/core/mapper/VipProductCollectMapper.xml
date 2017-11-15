@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.VipProductCollectMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.VipProductCollect">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="ssoId" jdbcType="BIGINT" property="ssoId" />
+    <result column="productId" jdbcType="BIGINT" property="productId" />
+    <result column="skuId" jdbcType="BIGINT" property="skuId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, ssoId, productId, skuId
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_vip_product_collect
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_vip_product_collect
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.VipProductCollect">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_vip_product_collect (createTime, ssoId, productId, 
+      skuId)
+    values (#{createTime,jdbcType=BIGINT}, #{ssoId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
+      #{skuId,jdbcType=BIGINT})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.VipProductCollect">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_vip_product_collect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="ssoId != null">
+        ssoId,
+      </if>
+      <if test="productId != null">
+        productId,
+      </if>
+      <if test="skuId != null">
+        skuId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.VipProductCollect">
+    update t_vip_product_collect
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        ssoId = #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        productId = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        skuId = #{skuId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.VipProductCollect">
+    update t_vip_product_collect
+    set createTime = #{createTime,jdbcType=BIGINT},
+      ssoId = #{ssoId,jdbcType=BIGINT},
+      productId = #{productId,jdbcType=BIGINT},
+      skuId = #{skuId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

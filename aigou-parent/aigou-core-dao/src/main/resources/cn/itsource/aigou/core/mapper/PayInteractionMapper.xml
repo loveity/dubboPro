@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.PayInteractionMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.PayInteraction">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="unionPaySn" jdbcType="CHAR" property="unionPaySn" />
+    <result column="payBillId" jdbcType="BIGINT" property="payBillId" />
+    <result column="payChannel" jdbcType="TINYINT" property="payChannel" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="returnSeq" jdbcType="VARCHAR" property="returnSeq" />
+    <result column="returnMoney" jdbcType="INTEGER" property="returnMoney" />
+    <result column="notifyTime" jdbcType="BIGINT" property="notifyTime" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="reactionData" jdbcType="VARCHAR" property="reactionData" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, updateTime, createTime, unionPaySn, payBillId, payChannel, money, returnSeq, 
+    returnMoney, notifyTime, state, reactionData
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_pay_interaction
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_pay_interaction
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.PayInteraction">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_pay_interaction (updateTime, createTime, unionPaySn, 
+      payBillId, payChannel, money, 
+      returnSeq, returnMoney, notifyTime, 
+      state, reactionData)
+    values (#{updateTime,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{unionPaySn,jdbcType=CHAR}, 
+      #{payBillId,jdbcType=BIGINT}, #{payChannel,jdbcType=TINYINT}, #{money,jdbcType=INTEGER}, 
+      #{returnSeq,jdbcType=VARCHAR}, #{returnMoney,jdbcType=INTEGER}, #{notifyTime,jdbcType=BIGINT}, 
+      #{state,jdbcType=TINYINT}, #{reactionData,jdbcType=VARCHAR})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.PayInteraction">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_pay_interaction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="unionPaySn != null">
+        unionPaySn,
+      </if>
+      <if test="payBillId != null">
+        payBillId,
+      </if>
+      <if test="payChannel != null">
+        payChannel,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="returnSeq != null">
+        returnSeq,
+      </if>
+      <if test="returnMoney != null">
+        returnMoney,
+      </if>
+      <if test="notifyTime != null">
+        notifyTime,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="reactionData != null">
+        reactionData,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="unionPaySn != null">
+        #{unionPaySn,jdbcType=CHAR},
+      </if>
+      <if test="payBillId != null">
+        #{payBillId,jdbcType=BIGINT},
+      </if>
+      <if test="payChannel != null">
+        #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=INTEGER},
+      </if>
+      <if test="returnSeq != null">
+        #{returnSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="returnMoney != null">
+        #{returnMoney,jdbcType=INTEGER},
+      </if>
+      <if test="notifyTime != null">
+        #{notifyTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="reactionData != null">
+        #{reactionData,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.PayInteraction">
+    update t_pay_interaction
+    <set>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="unionPaySn != null">
+        unionPaySn = #{unionPaySn,jdbcType=CHAR},
+      </if>
+      <if test="payBillId != null">
+        payBillId = #{payBillId,jdbcType=BIGINT},
+      </if>
+      <if test="payChannel != null">
+        payChannel = #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="returnSeq != null">
+        returnSeq = #{returnSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="returnMoney != null">
+        returnMoney = #{returnMoney,jdbcType=INTEGER},
+      </if>
+      <if test="notifyTime != null">
+        notifyTime = #{notifyTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="reactionData != null">
+        reactionData = #{reactionData,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.PayInteraction">
+    update t_pay_interaction
+    set updateTime = #{updateTime,jdbcType=BIGINT},
+      createTime = #{createTime,jdbcType=BIGINT},
+      unionPaySn = #{unionPaySn,jdbcType=CHAR},
+      payBillId = #{payBillId,jdbcType=BIGINT},
+      payChannel = #{payChannel,jdbcType=TINYINT},
+      money = #{money,jdbcType=INTEGER},
+      returnSeq = #{returnSeq,jdbcType=VARCHAR},
+      returnMoney = #{returnMoney,jdbcType=INTEGER},
+      notifyTime = #{notifyTime,jdbcType=BIGINT},
+      state = #{state,jdbcType=TINYINT},
+      reactionData = #{reactionData,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getByBillId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select * from t_pay_interaction where payBillId=#{billId}
+  </select>
+</mapper>

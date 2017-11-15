@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.OrderReturnMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.OrderReturn">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="orderId" jdbcType="BIGINT" property="orderId" />
+    <result column="orderSn" jdbcType="CHAR" property="orderSn" />
+    <result column="returnSn" jdbcType="CHAR" property="returnSn" />
+    <result column="applyTime" jdbcType="BIGINT" property="applyTime" />
+    <result column="totalMoney" jdbcType="INTEGER" property="totalMoney" />
+    <result column="carriageFee" jdbcType="INTEGER" property="carriageFee" />
+    <result column="realMoney" jdbcType="INTEGER" property="realMoney" />
+    <result column="returnPayMoney" jdbcType="INTEGER" property="returnPayMoney" />
+    <result column="ssoId" jdbcType="BIGINT" property="ssoId" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="payChannel" jdbcType="TINYINT" property="payChannel" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="returnShipStore" jdbcType="BIGINT" property="returnShipStore" />
+    <result column="returnShipSn" jdbcType="VARCHAR" property="returnShipSn" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, orderId, orderSn, returnSn, applyTime, totalMoney, carriageFee, 
+    realMoney, returnPayMoney, ssoId, reason, payChannel, state, remark, returnShipStore, 
+    returnShipSn
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_return
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_order_return
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.OrderReturn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_return (createTime, updateTime, orderId, 
+      orderSn, returnSn, applyTime, 
+      totalMoney, carriageFee, realMoney, 
+      returnPayMoney, ssoId, reason, 
+      payChannel, state, remark, 
+      returnShipStore, returnShipSn)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, 
+      #{orderSn,jdbcType=CHAR}, #{returnSn,jdbcType=CHAR}, #{applyTime,jdbcType=BIGINT}, 
+      #{totalMoney,jdbcType=INTEGER}, #{carriageFee,jdbcType=INTEGER}, #{realMoney,jdbcType=INTEGER}, 
+      #{returnPayMoney,jdbcType=INTEGER}, #{ssoId,jdbcType=BIGINT}, #{reason,jdbcType=VARCHAR}, 
+      #{payChannel,jdbcType=TINYINT}, #{state,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, 
+      #{returnShipStore,jdbcType=BIGINT}, #{returnShipSn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.OrderReturn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_return
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="orderId != null">
+        orderId,
+      </if>
+      <if test="orderSn != null">
+        orderSn,
+      </if>
+      <if test="returnSn != null">
+        returnSn,
+      </if>
+      <if test="applyTime != null">
+        applyTime,
+      </if>
+      <if test="totalMoney != null">
+        totalMoney,
+      </if>
+      <if test="carriageFee != null">
+        carriageFee,
+      </if>
+      <if test="realMoney != null">
+        realMoney,
+      </if>
+      <if test="returnPayMoney != null">
+        returnPayMoney,
+      </if>
+      <if test="ssoId != null">
+        ssoId,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="payChannel != null">
+        payChannel,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="returnShipStore != null">
+        returnShipStore,
+      </if>
+      <if test="returnShipSn != null">
+        returnShipSn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null">
+        #{orderSn,jdbcType=CHAR},
+      </if>
+      <if test="returnSn != null">
+        #{returnSn,jdbcType=CHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=BIGINT},
+      </if>
+      <if test="totalMoney != null">
+        #{totalMoney,jdbcType=INTEGER},
+      </if>
+      <if test="carriageFee != null">
+        #{carriageFee,jdbcType=INTEGER},
+      </if>
+      <if test="realMoney != null">
+        #{realMoney,jdbcType=INTEGER},
+      </if>
+      <if test="returnPayMoney != null">
+        #{returnPayMoney,jdbcType=INTEGER},
+      </if>
+      <if test="ssoId != null">
+        #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="payChannel != null">
+        #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="returnShipStore != null">
+        #{returnShipStore,jdbcType=BIGINT},
+      </if>
+      <if test="returnShipSn != null">
+        #{returnShipSn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.OrderReturn">
+    update t_order_return
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        orderId = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null">
+        orderSn = #{orderSn,jdbcType=CHAR},
+      </if>
+      <if test="returnSn != null">
+        returnSn = #{returnSn,jdbcType=CHAR},
+      </if>
+      <if test="applyTime != null">
+        applyTime = #{applyTime,jdbcType=BIGINT},
+      </if>
+      <if test="totalMoney != null">
+        totalMoney = #{totalMoney,jdbcType=INTEGER},
+      </if>
+      <if test="carriageFee != null">
+        carriageFee = #{carriageFee,jdbcType=INTEGER},
+      </if>
+      <if test="realMoney != null">
+        realMoney = #{realMoney,jdbcType=INTEGER},
+      </if>
+      <if test="returnPayMoney != null">
+        returnPayMoney = #{returnPayMoney,jdbcType=INTEGER},
+      </if>
+      <if test="ssoId != null">
+        ssoId = #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="payChannel != null">
+        payChannel = #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="returnShipStore != null">
+        returnShipStore = #{returnShipStore,jdbcType=BIGINT},
+      </if>
+      <if test="returnShipSn != null">
+        returnShipSn = #{returnShipSn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.OrderReturn">
+    update t_order_return
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      orderId = #{orderId,jdbcType=BIGINT},
+      orderSn = #{orderSn,jdbcType=CHAR},
+      returnSn = #{returnSn,jdbcType=CHAR},
+      applyTime = #{applyTime,jdbcType=BIGINT},
+      totalMoney = #{totalMoney,jdbcType=INTEGER},
+      carriageFee = #{carriageFee,jdbcType=INTEGER},
+      realMoney = #{realMoney,jdbcType=INTEGER},
+      returnPayMoney = #{returnPayMoney,jdbcType=INTEGER},
+      ssoId = #{ssoId,jdbcType=BIGINT},
+      reason = #{reason,jdbcType=VARCHAR},
+      payChannel = #{payChannel,jdbcType=TINYINT},
+      state = #{state,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      returnShipStore = #{returnShipStore,jdbcType=BIGINT},
+      returnShipSn = #{returnShipSn,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.SkuMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.Sku">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="productId" jdbcType="BIGINT" property="productId" />
+    <result column="skuCode" jdbcType="CHAR" property="skuCode" />
+    <result column="skuName" jdbcType="VARCHAR" property="skuName" />
+    <result column="marketPrice" jdbcType="INTEGER" property="marketPrice" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="costPrice" jdbcType="INTEGER" property="costPrice" />
+    <result column="saleCount" jdbcType="INTEGER" property="saleCount" />
+    <result column="sortIndex" jdbcType="INTEGER" property="sortIndex" />
+    <result column="availableStock" jdbcType="INTEGER" property="availableStock" />
+    <result column="frozenStock" jdbcType="INTEGER" property="frozenStock" />
+    <result column="skuProperties" jdbcType="VARCHAR" property="skuProperties" />
+    <result column="skuMainPic" jdbcType="VARCHAR" property="skuMainPic" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, productId, skuCode, skuName, marketPrice, price, costPrice, saleCount, 
+    sortIndex, availableStock, frozenStock, skuProperties, skuMainPic
+  </sql>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_sku
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.Sku">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_sku (createTime, updateTime, productId, 
+      skuCode,skuName, marketPrice, price, 
+      costPrice, saleCount, sortIndex, 
+      availableStock, frozenStock, skuProperties, 
+      skuMainPic)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
+      #{skuCode,jdbcType=CHAR},  #{skuName,jdbcType=VARCHAR}, #{marketPrice,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, 
+      #{costPrice,jdbcType=INTEGER}, #{saleCount,jdbcType=INTEGER}, #{sortIndex,jdbcType=INTEGER}, 
+      #{availableStock,jdbcType=INTEGER}, #{frozenStock,jdbcType=INTEGER}, #{skuProperties,jdbcType=VARCHAR}, 
+      #{skuMainPic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.Sku">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_sku
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="productId != null">
+        productId,
+      </if>
+      <if test="skuCode != null">
+        skuCode,
+      </if>
+      <if test="skuName != null">
+        skuName,
+      </if>
+      <if test="marketPrice != null">
+        marketPrice,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="costPrice != null">
+        costPrice,
+      </if>
+      <if test="saleCount != null">
+        saleCount,
+      </if>
+      <if test="sortIndex != null">
+        sortIndex,
+      </if>
+      <if test="availableStock != null">
+        availableStock,
+      </if>
+      <if test="frozenStock != null">
+        frozenStock,
+      </if>
+      <if test="skuProperties != null">
+        skuProperties,
+      </if>
+      <if test="skuMainPic != null">
+        skuMainPic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="skuCode != null">
+        #{skuCode,jdbcType=CHAR},
+      </if>
+      <if test="skuName != null">
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="costPrice != null">
+        #{costPrice,jdbcType=INTEGER},
+      </if>
+      <if test="saleCount != null">
+        #{saleCount,jdbcType=INTEGER},
+      </if>
+      <if test="sortIndex != null">
+        #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="availableStock != null">
+        #{availableStock,jdbcType=INTEGER},
+      </if>
+      <if test="frozenStock != null">
+        #{frozenStock,jdbcType=INTEGER},
+      </if>
+      <if test="skuProperties != null">
+        #{skuProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="skuMainPic != null">
+        #{skuMainPic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.Sku">
+    update t_sku
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        productId = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="skuCode != null">
+        skuCode = #{skuCode,jdbcType=CHAR},
+      </if>
+      <if test="skuName != null">
+        skuName = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        marketPrice = #{marketPrice,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="costPrice != null">
+        costPrice = #{costPrice,jdbcType=INTEGER},
+      </if>
+      <if test="saleCount != null">
+        saleCount = #{saleCount,jdbcType=INTEGER},
+      </if>
+      <if test="sortIndex != null">
+        sortIndex = #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="availableStock != null">
+        availableStock = #{availableStock,jdbcType=INTEGER},
+      </if>
+      <if test="frozenStock != null">
+        frozenStock = #{frozenStock,jdbcType=INTEGER},
+      </if>
+      <if test="skuProperties != null">
+        skuProperties = #{skuProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="skuMainPic != null">
+        skuMainPic = #{skuMainPic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.Sku">
+    update t_sku
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      productId = #{productId,jdbcType=BIGINT},
+      skuCode = #{skuCode,jdbcType=CHAR},
+      skuName = #{skuName,jdbcType=VARCHAR},
+      marketPrice = #{marketPrice,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER},
+      costPrice = #{costPrice,jdbcType=INTEGER},
+      saleCount = #{saleCount,jdbcType=INTEGER},
+      sortIndex = #{sortIndex,jdbcType=INTEGER},
+      availableStock = #{availableStock,jdbcType=INTEGER},
+      frozenStock = #{frozenStock,jdbcType=INTEGER},
+      skuProperties = #{skuProperties,jdbcType=VARCHAR},
+      skuMainPic = #{skuMainPic,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteProperties" parameterType="java.lang.Long">
+    delete from t_sku_property 
+    where skuId = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="saveProperties" parameterType="list">
+	INSERT INTO t_sku_property(skuId,propId,propName,optionId,value) VALUES 
+	<foreach separator="," index="index" item="item" collection="list"> (#{item.skuId},#{item.propId},#{item.propName},#{item.optionId},#{item.value}) </foreach>
+  </insert>
+  
+  <resultMap id="SkuResultMap" type="cn.itsource.aigou.core.domain.Sku">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="productId" jdbcType="BIGINT" property="productId" />
+    <result column="skuCode" jdbcType="CHAR" property="skuCode" />
+    <result column="skuName" jdbcType="VARCHAR" property="skuName" />
+    <result column="marketPrice" jdbcType="INTEGER" property="marketPrice" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="costPrice" jdbcType="INTEGER" property="costPrice" />
+    <result column="saleCount" jdbcType="INTEGER" property="saleCount" />
+    <result column="sortIndex" jdbcType="INTEGER" property="sortIndex" />
+    <result column="availableStock" jdbcType="INTEGER" property="availableStock" />
+    <result column="frozenStock" jdbcType="INTEGER" property="frozenStock" />
+    <result column="skuProperties" jdbcType="VARCHAR" property="skuProperties" />
+    <result column="skuMainPic" jdbcType="VARCHAR" property="skuMainPic" />
+    <collection property="skuPropertyList" javaType="list" ofType="cn.itsource.aigou.core.domain.SkuProperty">
+    	<id column="spId" property="id"/>
+    	<result column="propId" property="propId"/>
+    	<result column="propName" property="propName"/>
+    	<result column="optionId" property="optionId"/>
+    	<result column="value" property="value"/>
+    </collection>
+  </resultMap>
+  
+  <select id="get" parameterType="java.lang.Long" resultMap="SkuResultMap">
+    select ts.*,tsp.id spId,tsp.propId,tsp.propName,tsp.optionId,tsp.`value` from t_sku ts LEFT JOIN t_sku_property tsp on ts.id = tsp.skuId 
+	where ts.id=#{id} order by ts.id
+  </select>
+  
+  <update id="updateProductPrice" parameterType="java.lang.Long">
+  	update t_product p set 
+	maxPrice = (select max(price) from t_sku where productId=#{productId}),
+	minPrice = (select min(price) from t_sku where productId=#{productId})
+	where p.id = #{productId}
+  </update>
+  
+  <select id="getMaxCode" parameterType="java.lang.Long" resultType="java.lang.String">
+  	select max(skuCode) from t_sku where productId = #{productId}
+  </select>
+  
+  <update id="recoverStock">
+  	update t_sku set frozenStock=frozenStock-#{amount},availableStock=availableStock+#{amount} where id=#{skuId}
+  </update>
+  
+  <update id="outbound">
+  	update t_sku set frozenStock=frozenStock-#{amount} where id=#{skuId}
+  </update>
+  
+  <select id="getByCode" parameterType="java.lang.String" resultType="cn.itsource.aigou.core.domain.Sku">
+  	select * from t_sku where skuCode=#{skuCode}
+  </select>
+</mapper>

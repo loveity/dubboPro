@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.ProductMediaMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.ProductMedia">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="productId" jdbcType="BIGINT" property="productId" />
+    <result column="mediaType" jdbcType="TINYINT" property="mediaType" />
+    <result column="sortIndex" jdbcType="INTEGER" property="sortIndex" />
+    <result column="resource" jdbcType="VARCHAR" property="resource" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, productId, mediaType, sortIndex, resource
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_media
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_product_media
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.ProductMedia">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_product_media (createTime, updateTime, productId, 
+      mediaType, sortIndex, resource
+      )
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
+      #{mediaType,jdbcType=TINYINT}, #{sortIndex,jdbcType=INTEGER}, #{resource,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.ProductMedia">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_product_media
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="productId != null">
+        productId,
+      </if>
+      <if test="mediaType != null">
+        mediaType,
+      </if>
+      <if test="sortIndex != null">
+        sortIndex,
+      </if>
+      <if test="resource != null">
+        resource,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="mediaType != null">
+        #{mediaType,jdbcType=TINYINT},
+      </if>
+      <if test="sortIndex != null">
+        #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="resource != null">
+        #{resource,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.ProductMedia">
+    update t_product_media
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        productId = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="mediaType != null">
+        mediaType = #{mediaType,jdbcType=TINYINT},
+      </if>
+      <if test="sortIndex != null">
+        sortIndex = #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="resource != null">
+        resource = #{resource,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.ProductMedia">
+    update t_product_media
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      productId = #{productId,jdbcType=BIGINT},
+      mediaType = #{mediaType,jdbcType=TINYINT},
+      sortIndex = #{sortIndex,jdbcType=INTEGER},
+      resource = #{resource,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

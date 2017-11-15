@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.PromotionReturnMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.PromotionReturn">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="fullAmount" jdbcType="INTEGER" property="fullAmount" />
+    <result column="returnValue" jdbcType="INTEGER" property="returnValue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, type, fullAmount, returnValue
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_promotion_return
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_promotion_return
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.PromotionReturn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_promotion_return (createTime, updateTime, type, 
+      fullAmount, returnValue)
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, 
+      #{fullAmount,jdbcType=INTEGER}, #{returnValue,jdbcType=INTEGER})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.PromotionReturn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_promotion_return
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="fullAmount != null">
+        fullAmount,
+      </if>
+      <if test="returnValue != null">
+        returnValue,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="fullAmount != null">
+        #{fullAmount,jdbcType=INTEGER},
+      </if>
+      <if test="returnValue != null">
+        #{returnValue,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.PromotionReturn">
+    update t_promotion_return
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="fullAmount != null">
+        fullAmount = #{fullAmount,jdbcType=INTEGER},
+      </if>
+      <if test="returnValue != null">
+        returnValue = #{returnValue,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.PromotionReturn">
+    update t_promotion_return
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      type = #{type,jdbcType=TINYINT},
+      fullAmount = #{fullAmount,jdbcType=INTEGER},
+      returnValue = #{returnValue,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

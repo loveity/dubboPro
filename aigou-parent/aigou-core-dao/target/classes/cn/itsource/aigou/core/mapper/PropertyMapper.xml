@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.PropertyMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.Property">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="propName" jdbcType="VARCHAR" property="propName" />
+    <result column="productType" jdbcType="BIGINT" property="productType" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="inputMode" jdbcType="TINYINT" property="inputMode" />
+    <result column="inputType" jdbcType="TINYINT" property="inputType" />
+    <result column="validatePattern" jdbcType="VARCHAR" property="validatePattern" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, propName, productType, type, inputMode, inputType, validatePattern,remark
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_property
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_property
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.Property">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_property (createTime, updateTime, propName, 
+      productType, type, inputMode, 
+      inputType, validatePattern, remark
+      )
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{propName,jdbcType=VARCHAR}, 
+      #{productType,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{inputMode,jdbcType=TINYINT}, 
+      #{inputType,jdbcType=TINYINT}, #{validatePattern,jdbcType=VARCHAR}, #{remark,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.Property">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_property
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="propName != null">
+        propName,
+      </if>
+      <if test="productType != null">
+        productType,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="inputMode != null">
+        inputMode,
+      </if>
+      <if test="inputType != null">
+        inputType,
+      </if>
+      <if test="validatePattern != null">
+        validatePattern,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="propName != null">
+        #{propName,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        #{productType,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="inputMode != null">
+        #{inputMode,jdbcType=TINYINT},
+      </if>
+      <if test="inputType != null">
+        #{inputType,jdbcType=TINYINT},
+      </if>
+      <if test="validatePattern != null">
+        #{validatePattern,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.Property">
+    update t_property
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="propName != null">
+        propName = #{propName,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        productType = #{productType,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="inputMode != null">
+        inputMode = #{inputMode,jdbcType=TINYINT},
+      </if>
+      <if test="inputType != null">
+        inputType = #{inputType,jdbcType=TINYINT},
+      </if>
+      <if test="validatePattern != null">
+        validatePattern = #{validatePattern,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.Property">
+    update t_property
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      propName = #{propName,jdbcType=VARCHAR},
+      productType = #{productType,jdbcType=BIGINT},
+      type = #{type,jdbcType=TINYINT},
+      inputMode = #{inputMode,jdbcType=TINYINT},
+      inputType = #{inputType,jdbcType=TINYINT},
+      validatePattern = #{validatePattern,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <sql id="whereSql">
+  	<where>
+  		<if test="productType!=null">
+  			and tp.productType = #{productType,jdbcType=BIGINT}
+  		</if>
+  	</where>
+  </sql>
+  
+  <select id="getProperties" parameterType="cn.itsource.aigou.core.query.BaseQuery" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_property tp
+    <include refid="whereSql"/>
+  </select>
+  
+  <select id="getOptions" parameterType="java.lang.Long" resultType="cn.itsource.aigou.core.domain.PropertyOption">
+    select * from t_property_option tpo where propId=#{id}
+  </select>
+  
+</mapper>

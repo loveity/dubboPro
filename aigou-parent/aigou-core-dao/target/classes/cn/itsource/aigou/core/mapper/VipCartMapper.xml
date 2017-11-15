@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.VipCartMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.VipCart">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="ssoId" jdbcType="BIGINT" property="ssoId" />
+    <result column="productId" jdbcType="BIGINT" property="productId" />
+    <result column="skuId" jdbcType="BIGINT" property="skuId" />
+    <result column="skuMainPic" jdbcType="VARCHAR" property="skuMainPic" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="storeId" jdbcType="BIGINT" property="storeId" />
+    <result column="storeName" jdbcType="VARCHAR" property="storeName" />
+    <result column="skuProperties" jdbcType="VARCHAR" property="skuProperties" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="selected" jdbcType="TINYINT" property="selected" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, ssoId, productId, skuId, skuMainPic, name, storeId, storeName, skuProperties, 
+    amount,selected
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_vip_cart
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_vip_cart
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.VipCart">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_vip_cart (createTime, ssoId, productId, 
+      skuId, skuMainPic, name, 
+      storeId, storeName, skuProperties, 
+      amount,selected)
+    values (#{createTime,jdbcType=BIGINT}, #{ssoId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
+      #{skuId,jdbcType=BIGINT}, #{skuMainPic,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{storeId,jdbcType=BIGINT}, #{storeName,jdbcType=VARCHAR}, #{skuProperties,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=INTEGER},#{selected,jdbcType=TINYINT})
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.VipCart">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_vip_cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="ssoId != null">
+        ssoId,
+      </if>
+      <if test="productId != null">
+        productId,
+      </if>
+      <if test="skuId != null">
+        skuId,
+      </if>
+      <if test="skuMainPic != null">
+        skuMainPic,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="storeId != null">
+        storeId,
+      </if>
+      <if test="storeName != null">
+        storeName,
+      </if>
+      <if test="skuProperties != null">
+        skuProperties,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="selected != null">
+        selected,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuMainPic != null">
+        #{skuMainPic,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null">
+        #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeName != null">
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuProperties != null">
+        #{skuProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{selected,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.VipCart">
+    update t_vip_cart
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="ssoId != null">
+        ssoId = #{ssoId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        productId = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        skuId = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuMainPic != null">
+        skuMainPic = #{skuMainPic,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null">
+        storeId = #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeName != null">
+        storeName = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuProperties != null">
+        skuProperties = #{skuProperties,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="selected != null">
+        selected = #{selected,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.VipCart">
+    update t_vip_cart
+    set createTime = #{createTime,jdbcType=BIGINT},
+      ssoId = #{ssoId,jdbcType=BIGINT},
+      productId = #{productId,jdbcType=BIGINT},
+      skuId = #{skuId,jdbcType=BIGINT},
+      skuMainPic = #{skuMainPic,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      storeId = #{storeId,jdbcType=BIGINT},
+      storeName = #{storeName,jdbcType=VARCHAR},
+      skuProperties = #{skuProperties,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=INTEGER},
+      selected = #{selected,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <delete id="delCartByUser">
+  	delete from t_vip_cart where ssoId=#{ssoId} and id in 
+  	<foreach collection="cartIdArr" item="cartId" open="(" close=")" separator=",">#{cartId}</foreach>
+  </delete>
+  
+  <update id="changeNumber">
+  	update t_vip_cart set amount=#{number} where ssoId=#{ssoId} and id=#{cartId}
+  </update>
+  
+  <update id="updateSelectCart">
+  	update t_vip_cart set selected=0 where ssoId=#{ssoId} and id not in 
+  	<foreach collection="cartIdArr" item="cartId" open="(" close=")" separator=",">#{cartId}</foreach>;
+  	update t_vip_cart set selected=1 where ssoId=#{ssoId} and id in 
+  	<foreach collection="cartIdArr" item="cartId" open="(" close=")" separator=",">#{cartId}</foreach>;
+  </update>
+  
+  <update id="cancelSelectAll" parameterType="java.lang.Long">
+  	update t_vip_cart set selected=0 where ssoId=#{ssoId}
+  </update>
+  
+  
+  <select id="getCarts" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select * from t_vip_cart where ssoId=#{ssoId}
+  </select>
+  
+  <select id="getBySsoSku" resultMap="BaseResultMap">
+  	select * from t_vip_cart where ssoId=#{ssoId} and skuId=#{skuId}
+  </select>
+  
+  <delete id="clearBuy" parameterType="java.lang.Long">
+  	delete from t_vip_cart where ssoId=#{ssoId} and selected=1
+  </delete>
+</mapper>

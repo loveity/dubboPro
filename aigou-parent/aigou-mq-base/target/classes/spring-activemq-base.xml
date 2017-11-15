@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供 -->
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616" />
+	</bean>
+
+	<!-- 连接池配置 -->
+	<bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
+		<property name="connectionFactory" ref="targetConnectionFactory" />
+		<property name="maxConnections" value="10" />
+	</bean>
+
+	<!-- spring的连接池工厂对象 -->
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="pooledConnectionFactory" />
+	</bean>
+	
+	<!-- Spring提供的JMS工具类，它可以进行消息发送、接收等 -->  
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">  
+	    <!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->  
+	    <property name="connectionFactory" ref="connectionFactory"/>
+	</bean>
+	
+	<!--取消支付申请队列，点对点的-->  
+	<bean id="payCancelApplyQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">  
+	    <constructor-arg>  
+	        <value>payCancelApplyQueue</value>  
+	    </constructor-arg>  
+	</bean>
+	<!--确认取消支付完成队列，点对点的-->  
+	<bean id="payCancelConfirmQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">  
+	    <constructor-arg>  
+	        <value>payCancelConfirmQueue</value>  
+	    </constructor-arg>
+	</bean>
+	
+	<!--这个是主题目的地，一对多的-->  
+	<bean id="defaultTopicDestination" class="org.apache.activemq.command.ActiveMQTopic">  
+	    <constructor-arg value="defaultTopic"/>  
+	</bean>
+	
+	
+</beans>

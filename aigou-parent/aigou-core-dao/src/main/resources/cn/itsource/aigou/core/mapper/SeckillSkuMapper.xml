@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itsource.aigou.core.mapper.SeckillSkuMapper">
+  <resultMap id="BaseResultMap" type="cn.itsource.aigou.core.domain.SeckillSku">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+    <result column="seckillId" jdbcType="BIGINT" property="seckillId" />
+    <result column="skuName" jdbcType="VARCHAR" property="skuName" />
+    <result column="skuPic" jdbcType="VARCHAR" property="skuPic" />
+    <result column="productId" jdbcType="BIGINT" property="productId" />
+    <result column="skuId" jdbcType="BIGINT" property="skuId" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="totalCount" jdbcType="INTEGER" property="totalCount" />
+    <result column="leftCount" jdbcType="INTEGER" property="leftCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, updateTime, seckillId, skuName,skuPic, productId, skuId, price, totalCount, 
+    leftCount
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_seckill_sku
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from t_seckill_sku
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="cn.itsource.aigou.core.domain.SeckillSku">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_seckill_sku (createTime, updateTime, seckillId, 
+      skuName,skuPic, productId, skuId, 
+      price, totalCount, leftCount
+      )
+    values (#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{seckillId,jdbcType=BIGINT}, 
+      #{skuName,jdbcType=VARCHAR},
+      #{skuPic,jdbcType=VARCHAR},
+       #{productId,jdbcType=BIGINT}, #{skuId,jdbcType=BIGINT}, 
+      #{price,jdbcType=INTEGER}, #{totalCount,jdbcType=INTEGER}, #{leftCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="savePart" parameterType="cn.itsource.aigou.core.domain.SeckillSku">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_seckill_sku
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="seckillId != null">
+        seckillId,
+      </if>
+      <if test="skuName != null">
+        skuName,
+      </if>
+      <if test="skuPic != null">
+        skuPic,
+      </if>
+      <if test="productId != null">
+        productId,
+      </if>
+      <if test="skuId != null">
+        skuId,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="totalCount != null">
+        totalCount,
+      </if>
+      <if test="leftCount != null">
+        leftCount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="seckillId != null">
+        #{seckillId,jdbcType=BIGINT},
+      </if>
+      <if test="skuName != null">
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuPic != null">
+        #{skuPic,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="totalCount != null">
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="leftCount != null">
+        #{leftCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePart" parameterType="cn.itsource.aigou.core.domain.SeckillSku">
+    update t_seckill_sku
+    <set>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="seckillId != null">
+        seckillId = #{seckillId,jdbcType=BIGINT},
+      </if>
+      <if test="skuName != null">
+        skuName = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuPic != null">
+        skuPic = #{skuPic,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        productId = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        skuId = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="totalCount != null">
+        totalCount = #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="leftCount != null">
+        leftCount = #{leftCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="cn.itsource.aigou.core.domain.SeckillSku">
+    update t_seckill_sku
+    set createTime = #{createTime,jdbcType=BIGINT},
+      updateTime = #{updateTime,jdbcType=BIGINT},
+      seckillId = #{seckillId,jdbcType=BIGINT},
+      skuName = #{skuName,jdbcType=VARCHAR},
+      skuPic = #{skuPic,jdbcType=VARCHAR},
+      productId = #{productId,jdbcType=BIGINT},
+      skuId = #{skuId,jdbcType=BIGINT},
+      price = #{price,jdbcType=INTEGER},
+      totalCount = #{totalCount,jdbcType=INTEGER},
+      leftCount = #{leftCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
